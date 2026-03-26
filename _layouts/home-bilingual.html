@@ -77,28 +77,28 @@ layout: default-bilingual
                 <i class="fas fa-chart-line"></i>
                 <h3>{% if page.lang == 'es' %}Monitoreo en Tiempo Real{% else %}Real Time Monitoring{% endif %}</h3>
                 <p>{% if page.lang == 'es' %}Datos en vivo del nivel y comportamiento del arroyo{% else %}Live water level data and stream behavior{% endif %}</p>
-                <a href="{% if page.lang == 'es' %}/es/monitoreo-tiempo-real/{% else %}/pages/real-time-monitoring/{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
+                <a href="{% if page.lang == 'es' %}{{ '/es/monitoreo-tiempo-real/' | relative_url }}{% else %}{{ '/pages/real-time-monitoring/' | relative_url }}{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
             </div>
             
             <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
                 <i class="fas fa-video"></i>
                 <h3>{% if page.lang == 'es' %}Cámara en Vivo{% else %}Live Camera{% endif %}</h3>
                 <p>{% if page.lang == 'es' %}Transmisión en vivo del arroyo{% else %}Live stream of the stream{% endif %}</p>
-                <a href="{% if page.lang == 'es' %}/es/camara-vivo/{% else %}/pages/live-camera/{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
+                <a href="{% if page.lang == 'es' %}{{ '/es/camara-vivo/' | relative_url }}{% else %}{{ '/pages/live-camera/' | relative_url }}{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
             </div>
             
             <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
                 <i class="fas fa-images"></i>
                 <h3>{% if page.lang == 'es' %}Galería{% else %}Gallery{% endif %}</h3>
                 <p>{% if page.lang == 'es' %}Fotos y videos de eventos{% else %}Photos and videos of events{% endif %}</p>
-                <a href="{% if page.lang == 'es' %}/es/galeria/{% else %}/pages/gallery/{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
+                <a href="{% if page.lang == 'es' %}{{ '/es/galeria/' | relative_url }}{% else %}{{ '/pages/gallery/' | relative_url }}{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
             </div>
             
             <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
                 <i class="fas fa-book"></i>
                 <h3>{% if page.lang == 'es' %}Publicaciones{% else %}Publications{% endif %}</h3>
                 <p>{% if page.lang == 'es' %}Investigación científica y modelos de predicción{% else %}Scientific research and prediction models{% endif %}</p>
-                <a href="{% if page.lang == 'es' %}/es/publicaciones/{% else %}/pages/publications/{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
+                <a href="{% if page.lang == 'es' %}{{ '/es/publicaciones/' | relative_url }}{% else %}{{ '/pages/publications/' | relative_url }}{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
             </div>
         </div>
     </div>

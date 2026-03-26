@@ -12,7 +12,7 @@
 
 Plataforma de monitoreo hidrológico que combina sensores IoT, inteligencia artificial y participación ciudadana para alerta temprana de inundaciones en el Arroyo Mburicaó, Asunción, Paraguay.
 
-**Sitio web:** [https://https://mburicaocastai.github.io/](https://https://mburicaocastai.github.io/)
+**Sitio web:** [https://mburicaocastai.github.io/](https://mburicaocastai.github.io/)
 
 ---
 

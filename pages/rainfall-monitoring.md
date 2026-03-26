@@ -1,7 +1,8 @@
 ---
-layout: default
+layout: default-bilingual
 title: "Rainfall Monitoring"
 permalink: /pages/rainfall-monitoring/
+lang: en
 ---
 
 # Monitoreo de Precipitaciones

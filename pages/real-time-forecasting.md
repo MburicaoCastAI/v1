@@ -1,7 +1,8 @@
 ---
-layout: default
+layout: default-bilingual
 title: "Real Time Forecasting"
 permalink: /pages/real-time-forecasting/
+lang: en
 ---
 
 # Predicciones en Tiempo Real

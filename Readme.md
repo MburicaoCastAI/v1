@@ -12,7 +12,7 @@
 
 Plataforma de monitoreo hidrológico que combina sensores IoT, inteligencia artificial y participación ciudadana para alerta temprana de inundaciones en el Arroyo Mburicaó, Asunción, Paraguay.
 
-**Sitio web:** [https://monitoreo-mburicao.fiuuna.py/](https://monitoreo-mburicao.fiuuna.py/)
+**Sitio web:** [https://https://mburicaocastai.github.io/](https://https://mburicaocastai.github.io/)
 
 ---
 
@@ -73,7 +73,7 @@ Plataforma de monitoreo hidrológico que combina sensores IoT, inteligencia arti
 
 | | |
 |---|---|
-| **Email** | ciencia.ciudadana@mburicao.py |
+| **Email** | mburicaoflowai@gmail.com |
 | **Institución** | [FIUNA - UNA](https://www.ing.una.py/) |
 | **Financiamiento** | [PUBIABM](https://pubiabm.com.py/) |
 | **Eventos** | [Documentación FIUNA](https://www.ing.una.py/FIUNA3/?p=84962) |

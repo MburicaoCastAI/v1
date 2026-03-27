@@ -15,12 +15,12 @@ lang: es
         <div class="monitoring-grid">
             <div class="monitoring-item">
                 <h3><i class="fas fa-water"></i> Monitoreo de Nivel de Agua</h3>
-                <iframe src="http://200.10.231.202:3000/d-solo/30yTZR8Nz/monitoreo-arroyo-mburicao?orgId=2&from=1773236196423&to=1774532196423&panelId=4" frameborder="0"></iframe>
+                <iframe src="https://200.10.231.202:3000/d-solo/30yTZR8Nz/monitoreo-arroyo-mburicao?orgId=2&from=1773236196423&to=1774532196423&panelId=4" frameborder="0"></iframe>
             </div>
             
             <div class="monitoring-item">
                 <h3><i class="fas fa-cloud-rain"></i> Datos de Precipitación</h3>
-                <iframe src="http://200.10.231.202:3000/d-solo/30yTZR8Nz/monitoreo-arroyo-mburicao?orgId=2&from=1773236234982&to=1774532234982&panelId=6" frameborder="0"></iframe>
+                <iframe src="https://200.10.231.202:3000/d-solo/30yTZR8Nz/monitoreo-arroyo-mburicao?orgId=2&from=1773236234982&to=1774532234982&panelId=6" frameborder="0"></iframe>
             </div>
         </div>
         

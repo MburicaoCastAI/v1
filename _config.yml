@@ -58,7 +58,7 @@ defaults:
       layout: "default-bilingual"
       lang: "en"
   - scope:
-      path: "index-home.md"
+      path: "pages/home.md"
     values:
       layout: "home-bilingual"
       lang: "en"

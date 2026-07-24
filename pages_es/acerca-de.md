@@ -33,14 +33,14 @@ lang: es
         <div class="info-box" style="background: #f0f9ff; border-left: 4px solid #3b82f6;">
             <h3><i class="fas fa-users"></i> Equipo de Investigación</h3>
             <p><strong>Investigadores Principales:</strong> Dr. Andrés Wehrle y Dr. Diego Stalder</p>
-            <p><strong>Financiamiento de Configuración Inicial:</strong> Beca de Investigación FIUNA</p>
             <p><strong>Equipo de Investigación:</strong>
                 <ul style="margin-left: 1.5rem;">
-                  <li>(Doctoranda)Jazmín Ojeda</li>
-                     <li>(Estudiante de Maestría)Federico Morán</li>
-                    <li>(Estudiante Ing.)Mathias Aguilar</li>
-                    <li>(Estudiante Ing.)Héctor Velázquez</li>
-                  
+                  <li>(Doctoranda) Jazmín Ojeda - Hidrología, Uso del Suelo</li>
+<li>(Maestrando) Federico Morán (FIUNA-UCA) - Modelos de IA</li>
+<li>(Est. Ingeniería) Juan Cardozo - Fotogrametría y Topografía</li>
+<li>(Est. Ingeniería) Mathias Aguilar y Héctor Velázquez - Sensores de nivel de agua, pluviómetros</li>
+<li>(Est. Ingeniería) Victoria Paredes y Francisco González - IoT, Nowcasting de precipitaciones</li>
+<li>(Est. Ingeniería) Evelyn Paredes y Venus Ayala - Ciencia Ciudadana</li>
                 </ul>
             </p>
         </div>
@@ -101,8 +101,7 @@ lang: es
         <div class="info-box">
             <h3><i class="fas fa-at"></i> Contacto e Información Adicional</h3>
             <p><strong>Correo Electrónico:</strong> mburicaoflowai@gmail.com</p>
-            <p><strong>Teléfono:</strong> +595 21 123 456</p>
-            <p><strong>Ubicación:</strong> Asunción, Paraguay</p>
+            <p><strong>Ubicación:</strong> San Lorenzo, Paraguay</p>
             <p><strong>Más Información:</strong> <a href="https://www.ing.una.py/" target="_blank">FIUNA - Universidad Nacional de Asunción</a></p>
         </div>
     </div>

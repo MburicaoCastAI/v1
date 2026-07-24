@@ -33,16 +33,22 @@ lang: en
         <div class="info-box" style="background: #f0f9ff; border-left: 4px solid #3b82f6;">
             <h3><i class="fas fa-users"></i> Research Team</h3>
             <p><strong>Principal Investigators:</strong> Dr. Andrés Wehrle and Diego H. Stalder</p>
-            <p><strong>Initial Setup Funding:</strong> FIUNA Research Grant</p>
             <p><strong>Research Team:</strong>
+        
                 <ul style="margin-left: 1.5rem;">
                 
-                    <li>(PHD candidate) Jazmín Ojeda</li>
+                    <li>(PHD candidate) Jazmín Ojeda (Hydrology, Land Use)</li>
                     
-                    <li>(MSc Candidate) Federico Morán(UCA)</li>
-                    <li>(Eng. Student )Mathias Aguilar</li>
-                    <li>(Eng. Student )Héctor Velázquez</li>
+                    <li>(MSc Candidate) Federico Morán( FIUNA-UCA) - (AI Models)</li>
+                   
+                    <li>(Eng. Student )Juan Cardozo (Thotogrammetry and Topography)</li>
+
+                    <li>(Eng. Student )Mathias Aguilar and Héctor Velázquez (Water level sensors, precipitation gauges)</li>
+                   <li>(Eng. Student )Victoria Paredes and Francisco Gonzalez(IoT, Nowcasting precipitation)</li>
+                    <li>(Eng. Student )Evelyn Paredes and Venus Ayala (Citizen Science)</li>
                 </ul>
+
+            
             </p>
         </div>
 
@@ -102,8 +108,7 @@ lang: en
         <div class="info-box">
             <h3><i class="fas fa-at"></i> Contact & More Information</h3>
             <p><strong>Email:</strong> mburicaoflowai@gmail.com</p>
-            <p><strong>Phone:</strong> +595 21 123 456</p>
-            <p><strong>Location:</strong> Asunción, Paraguay</p>
+            <p><strong>Location:</strong> San Lorenzo, Paraguay</p>
             <p><strong>Learn More:</strong> <a href="https://www.ing.una.py/" target="_blank">FIUNA - Universidad Nacional de Asunción</a></p>
         </div>
     </div>

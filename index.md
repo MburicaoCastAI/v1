@@ -2,5 +2,5 @@
 layout: home-bilingual
 title: "Home - Urban Monitoring of Mburicaó Stream"
 permalink: /
-lang: en
+lang: es
 ---

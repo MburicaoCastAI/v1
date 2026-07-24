@@ -24,8 +24,6 @@ theme: minima # Base, luego personalizamos
 # Si prefieres un tema ya hecho, descomenta:
 # remote_theme: "mmistakes/minimal-mistakes"
 
-# Custom variables
-grafana_url: "http://200.10.231.202:3000"
 
 # Navigation
 navigation:

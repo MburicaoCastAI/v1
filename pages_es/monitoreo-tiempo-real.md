@@ -15,12 +15,16 @@ lang: es
         <div class="monitoring-grid">
             <div class="monitoring-item">
                 <h3><i class="fas fa-water"></i> Monitoreo de Nivel de Agua</h3>
-                <iframe src="{{ site.grafana_url }}/d-solo/30yTZR8Nz/monitoreo-arroyo-mburicao?orgId=2&from=1773236196423&to=1774532196423&panelId=4" frameborder="0"></iframe>
+                <img src="https://lmeserver.tail8113d2.ts.net/panels/water-level.png" 
+             alt="Water Level" 
+             style="width:100%; height:auto; border:1px solid #ddd;">
             </div>
             
             <div class="monitoring-item">
                 <h3><i class="fas fa-cloud-rain"></i> Datos de Precipitación</h3>
-                <iframe src="{{ site.grafana_url }}/d-solo/30yTZR8Nz/monitoreo-arroyo-mburicao?orgId=2&from=1773236234982&to=1774532234982&panelId=6" frameborder="0"></iframe>
+                <img src="https://lmeserver.tail8113d2.ts.net/panels/precipitation.png" 
+             alt="Precipitation" 
+             style="width:100%; height:auto; border:1px solid #ddd;">
             </div>
         </div>
         

@@ -23,32 +23,6 @@ lang: en
             <p><a href="https://www.ing.una.py/FIUNA3/?p=84962" target="_blank" style="color: #3b82f6; font-weight: 600;">FIUNA Publications - Recent Event Report <i class="fas fa-external-link-alt"></i></a></p>
         </div>
 
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?river,monitoring" alt="Monitoring station">
-                <div class="gallery-caption">Monitoring Station Setup</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?flood,water" alt="Flood event">
-                <div class="gallery-caption">Flood Event Documentation</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?sensor,technology" alt="Sensor installation">
-                <div class="gallery-caption">Sensor Installation</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?community,science" alt="Community workshop">
-                <div class="gallery-caption">Community Science Workshop</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?fieldwork,research" alt="Field research">
-                <div class="gallery-caption">Field Research Activities</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?data,analysis" alt="Data analysis">
-                <div class="gallery-caption">Data Analysis Session</div>
-            </div>
-        </div>
 
         <style>
             .gallery-grid {

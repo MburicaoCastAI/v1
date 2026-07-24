@@ -41,94 +41,45 @@ layout: default-bilingual
     <div class="container">
         <div class="section-header" data-aos="fade-up">
             {% if page.lang == 'es' %}
-            <h2>Último Evento de Inundación</h2>
-            <p>Video del evento más reciente registrado en el arroyo Mburicaó</p>
-            {% else %}
-            <h2>Latest Flood Event</h2>
-            <p>Video of the most recent event recorded in Mburicaó stream</p>
+            <h2>Noticias</h2>
+            
+                <li><a href="https://www.abc.com.py/nacionales/2026/07/23/fiuna-impulsa-una-plataforma-que-podria-anticipar-las-inundaciones-en-asuncion/" target="_blank">
+                    ABC: FIUNA impulsa una plataforma que podría anticipar las inundaciones en Asunción
+                </a></li>
+                <li><a href="https://www.ing.una.py/FIUNA3/?p=87008" target="_blank">
+                    Estudiantes e investigadores de la FIUNA presentan trabajos sobre alerta de inundaciones e internacionalización en el ERMAC 2026
+                </a></li>
+</a>
+       <li> <a href="https://www.ing.una.py/FIUNA3/?p=84962" target="_blank">
+    Precipitación histórica del 16 de marzo 2026 en la Cuenca del Arroyo Mburicao
+</a></li>
+
+
+                 {% else %}
+            <h2>News</h2>
+            <li><a href="https://www.abc.com.py/nacionales/2026/07/23/fiuna-impulsa-una-plataforma-que-podria-anticipar-las-inundaciones-en-asuncion/" target="_blank">
+            ABC: FIUNA promotes a platform that could anticipate floods in Asunción
+        </a></li>
+           <li><a href="https://www.ing.una.py/FIUNA3/?p=87008" target="_blank">
+    Students and researchers from FIUNA present papers on flood early warning and internationalization at ERMAC 2026
+</a></li>
+   <li>   <a href="https://www.ing.una.py/FIUNA3/?p=84962" target="_blank">
+    Historical rainfall data from March 16, 2026 in the Mburicao Stream Watershed
+</a></li>  
             {% endif %}
         </div>
         
         <div class="video-container" data-aos="fade-up">
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/PLACEHOLDER_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/oVp5AV5-Bpo" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="video-description">
-                <p>{% if page.lang == 'es' %}Este video muestra el último evento de inundación registrado en el arroyo Mburicaó. La plataforma de monitoreo permitió anticipar el evento y alertar a la comunidad con tiempo suficiente.{% else %}This video shows the latest flood event recorded in Mburicaó stream. The monitoring platform allowed anticipating the event and alerting the community with sufficient time.{% endif %}</p>
+                <p>{% if page.lang == 'es' %}Presentación del reportaje periodístico más reciente.{% else %}Presentation of the most recent news report.{% endif %}</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="features-section">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            {% if page.lang == 'es' %}
-            <h2>Plataforma Integral de Monitoreo</h2>
-            <p>Datos en tiempo real, predicciones avanzadas y participación ciudadana</p>
-            {% else %}
-            <h2>Comprehensive Monitoring Platform</h2>
-            <p>Real-time data, advanced predictions and citizen participation</p>
-            {% endif %}
-        </div>
-        
-        <div class="features-grid">
-            <div class="feature-card" data-aos="fade-up">
-                <i class="fas fa-chart-line"></i>
-                <h3>{% if page.lang == 'es' %}Monitoreo en Tiempo Real{% else %}Real Time Monitoring{% endif %}</h3>
-                <p>{% if page.lang == 'es' %}Datos en vivo del nivel y comportamiento del arroyo{% else %}Live water level data and stream behavior{% endif %}</p>
-                <a href="{% if page.lang == 'es' %}/es/monitoreo-tiempo-real/{% else %}/pages/real-time-monitoring/{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
-            </div>
-            
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
-                <i class="fas fa-video"></i>
-                <h3>{% if page.lang == 'es' %}Cámara en Vivo{% else %}Live Camera{% endif %}</h3>
-                <p>{% if page.lang == 'es' %}Transmisión en vivo del arroyo{% else %}Live stream of the stream{% endif %}</p>
-                <a href="{% if page.lang == 'es' %}/es/camara-vivo/{% else %}/pages/live-camera/{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
-            </div>
-            
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
-                <i class="fas fa-images"></i>
-                <h3>{% if page.lang == 'es' %}Galería{% else %}Gallery{% endif %}</h3>
-                <p>{% if page.lang == 'es' %}Fotos y videos de eventos{% else %}Photos and videos of events{% endif %}</p>
-                <a href="{% if page.lang == 'es' %}/es/galeria/{% else %}/pages/gallery/{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
-            </div>
-            
-            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
-                <i class="fas fa-book"></i>
-                <h3>{% if page.lang == 'es' %}Publicaciones{% else %}Publications{% endif %}</h3>
-                <p>{% if page.lang == 'es' %}Investigación científica y modelos de predicción{% else %}Scientific research and prediction models{% endif %}</p>
-                <a href="{% if page.lang == 'es' %}/es/publicaciones/{% else %}/pages/publications/{% endif %}" class="btn-link">{% if page.lang == 'es' %}Ver más →{% else %}Learn more →{% endif %}</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="dashboard-section">
-    <div class="container">
-        <div class="section-header" data-aos="fade-up">
-            {% if page.lang == 'es' %}
-            <h2>Dashboard en Tiempo Real</h2>
-            <p>Monitoreo continuo del nivel del agua y precipitaciones</p>
-            {% else %}
-            <h2>Real-Time Dashboard</h2>
-            <p>Continuous monitoring of water level and precipitation</p>
-            {% endif %}
-        </div>
-        
-        <div class="monitoring-grid">
-            <div class="monitoring-item" data-aos="fade-up">
-                <h3><i class="fas fa-water"></i> {% if page.lang == 'es' %}Monitoreo del Nivel del Agua{% else %}Water Level Monitoring{% endif %}</h3>
-                <iframe src="http://200.10.231.202:3000/d-solo/30yTZR8Nz/monitoreo-arroyo-mburicao?orgId=2&from=1773236196423&to=1774532196423&panelId=4" frameborder="0"></iframe>
-            </div>
-            
-            <div class="monitoring-item" data-aos="fade-up" data-aos-delay="100">
-                <h3><i class="fas fa-cloud-rain"></i> {% if page.lang == 'es' %}Datos de Precipitación{% else %}Precipitation Data{% endif %}</h3>
-                <iframe src="http://200.10.231.202:3000/d-solo/30yTZR8Nz/monitoreo-arroyo-mburicao?orgId=2&from=1773236234982&to=1774532234982&panelId=6" frameborder="0"></iframe>
-            </div>
-        </div>
-    </div>
-</section>
 
 <style>
     .gallery-section {

@@ -16,13 +16,13 @@
                    <h4>{% if page.lang == 'es' %}Enlaces Rápidos{% else %}Quick Links{% endif %}</h4>
                 <ul>
                     {% if page.lang == 'es' %}
-                    <li><a href="{{ '/es/monitoreo-tiempo-real/' | relative_url }}">Monitoreo en Tiempo Real</a></li>
-                    <li><a href="{{ '/es/galeria/' | relative_url }}">Galería</a></li>
-                    <li><a href="{{ '/es/publicaciones/' | relative_url }}">Publicaciones</a></li>
+                    <li><a href="{{ '/v1/es/monitoreo-tiempo-real/' | relative_url }}">Monitoreo en Tiempo Real</a></li>
+                    <li><a href="{{ '/v1/es/galeria/' | relative_url }}">Galería</a></li>
+                    <li><a href="{{ '/v1/es/publicaciones/' | relative_url }}">Publicaciones</a></li>
                     {% else %}
-                    <li><a href="{{ '/pages/real-time-monitoring/' | relative_url }}">Real Time Monitoring</a></li>
-                    <li><a href="{{ '/pages/gallery/' | relative_url }}">Gallery</a></li>
-                    <li><a href="{{ '/pages/publications/' | relative_url }}">Publications</a></li>
+                    <li><a href="{{ '/v1/pages/real-time-monitoring/' | relative_url }}">Real Time Monitoring</a></li>
+                    <li><a href="{{ '/v1/pages/gallery/' | relative_url }}">Gallery</a></li>
+                    <li><a href="{{ '/v1/pages/publications/' | relative_url }}">Publications</a></li>
                     {% endif %}
                 </ul>
             </div>

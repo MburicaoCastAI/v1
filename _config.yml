@@ -53,7 +53,7 @@ collections:
 # Defaults
 defaults:
   - scope:
-      path: "/pages/"
+      path: "/"
     values:
       layout: "default-bilingual"
       lang: "en"

@@ -98,11 +98,5 @@ lang: es
             </ul>
         </div>
 
-        <div class="info-box">
-            <h3><i class="fas fa-at"></i> Contacto e Información Adicional</h3>
-            <p><strong>Correo Electrónico:</strong> mburicaoflowai@gmail.com</p>
-            <p><strong>Ubicación:</strong> San Lorenzo, Paraguay</p>
-            <p><strong>Más Información:</strong> <a href="https://www.ing.una.py/" target="_blank">FIUNA - Universidad Nacional de Asunción</a></p>
-        </div>
     </div>
 </div>

@@ -23,32 +23,6 @@ lang: es
             <p><a href="https://www.ing.una.py/FIUNA3/?p=84962" target="_blank" style="color: #3b82f6; font-weight: 600;">FIUNA Publicaciones - Reporte del Evento Reciente <i class="fas fa-external-link-alt"></i></a></p>
         </div>
 
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?river,monitoring" alt="Estación de monitoreo">
-                <div class="gallery-caption">Instalación de Estación de Monitoreo</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?flood,water" alt="Evento de inundación">
-                <div class="gallery-caption">Documentación de Evento de Inundación</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?sensor,technology" alt="Instalación de sensores">
-                <div class="gallery-caption">Instalación de Sensores</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?community,science" alt="Taller comunitario">
-                <div class="gallery-caption">Taller de Ciencia Comunitaria</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?fieldwork,research" alt="Investigación de campo">
-                <div class="gallery-caption">Actividades de Investigación de Campo</div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://source.unsplash.com/random/400x300/?data,analysis" alt="Análisis de datos">
-                <div class="gallery-caption">Sesión de Análisis de Datos</div>
-            </div>
-        </div>
 
         <style>
             .gallery-grid {

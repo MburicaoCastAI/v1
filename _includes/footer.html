@@ -7,15 +7,23 @@
             </div>
             <div class="footer-section">
                 <h4>Contacto</h4>
-                <p><i class="fas fa-envelope"></i> ciencia.ciudadana@mburicao.py</p>
-                <p><i class="fas fa-phone"></i> +595 21 123 456</p>
+                <p><i class="fas fa-envelope"></i> mburicaoflowai@gmail.com</p>
+                
             </div>
             <div class="footer-section">
                 <h4>Enlaces Rápidos</h4>
                 <ul>
-                    <li><a href="{{ '/pages/registrations/' | relative_url }}">Reportar incidente</a></li>
-                    <li><a href="{{ '/pages/3d-map/' | relative_url }}">Mapa interactivo</a></li>
-                    <li><a href="{{ '/pages/real-time-forecasting/' | relative_url }}">Predicciones</a></li>
+                   <h4>{% if page.lang == 'es' %}Enlaces Rápidos{% else %}Quick Links{% endif %}</h4>
+                <ul>
+                    {% if page.lang == 'es' %}
+                    <li><a href="{{ '/es/monitoreo-tiempo-real/' | relative_url }}">Monitoreo en Tiempo Real</a></li>
+                    <li><a href="{{ '/es/galeria/' | relative_url }}">Galería</a></li>
+                    <li><a href="{{ '/es/publicaciones/' | relative_url }}">Publicaciones</a></li>
+                    {% else %}
+                    <li><a href="{{ '/pages/real-time-monitoring/' | relative_url }}">Real Time Monitoring</a></li>
+                    <li><a href="{{ '/pages/gallery/' | relative_url }}">Gallery</a></li>
+                    <li><a href="{{ '/pages/publications/' | relative_url }}">Publications</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

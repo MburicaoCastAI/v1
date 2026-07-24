@@ -53,12 +53,12 @@ collections:
 # Defaults
 defaults:
   - scope:
-      path: ""
+      path: "/pages/"
     values:
       layout: "default-bilingual"
       lang: "en"
   - scope:
-      path: "pages/home.md"
+      path: "pages/index.md"
     values:
       layout: "home-bilingual"
       lang: "en"

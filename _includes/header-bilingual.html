@@ -12,15 +12,15 @@
             <li><a href="{{ '/es/galeria/' | relative_url }}" {% if page.url contains '/es/galeria' %}class="active"{% endif %}>Galería</a></li>
             <li><a href="{{ '/es/publicaciones/' | relative_url }}" {% if page.url contains '/es/publicaciones' %}class="active"{% endif %}>Publicaciones</a></li>
             <li><a href="{{ '/es/acerca-de/' | relative_url }}" {% if page.url contains '/es/acerca-de' %}class="active"{% endif %}>Acerca de</a></li>
-            <li><a href="{% if page.url == '/es/' %}{{ '/' | relative_url }}{% else %}{% assign en_url = page.url | replace: '/es/', '/' | replace: 'monitoreo-tiempo-real', 'real-time-monitoring' | replace: 'camara-vivo', 'live-camera' | replace: 'galeria', 'gallery' | replace: 'acerca-de', 'about' %}{{ en_url | relative_url }}{% endif %}" class="lang-switch">EN</a></li>
+            <li><a href="{% if page.url == '/' %}{{ '/pages/' | relative_url }}{% else %}{% assign en_url = page.url | replace: '/es/', '/pages/' | replace: 'monitoreo-tiempo-real', 'real-time-monitoring' | replace: 'camara-vivo', 'live-camera' | replace: 'galeria', 'gallery' | replace: 'acerca-de', 'about' | replace: 'publicaciones', 'publications' %}{{ en_url | relative_url }}{% endif %}" class="lang-switch">EN</a></li>
             {% else %}
-            <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
+            <li><a href="{{ '/pages/' | relative_url }}" {% if page.url == '/pages/' %}class="active"{% endif %}>Home</a></li>
             <li><a href="{{ '/pages/real-time-monitoring/' | relative_url }}" {% if page.url contains 'real-time-monitoring' %}class="active"{% endif %}>Real Time Monitoring</a></li>
             <li><a href="{{ '/pages/live-camera/' | relative_url }}" {% if page.url contains 'live-camera' %}class="active"{% endif %}>Live Camera</a></li>
             <li><a href="{{ '/pages/gallery/' | relative_url }}" {% if page.url contains 'gallery' %}class="active"{% endif %}>Gallery</a></li>
             <li><a href="{{ '/pages/publications/' | relative_url }}" {% if page.url contains 'publications' %}class="active"{% endif %}>Publications</a></li>
             <li><a href="{{ '/pages/about/' | relative_url }}" {% if page.url contains 'about' %}class="active"{% endif %}>About</a></li>
-            <li><a href="{% if page.url == '/' %}{{ '/es/' | relative_url }}{% else %}{% assign es_url = page.url | replace: '/pages/', '/es/' | replace: 'real-time-monitoring', 'monitoreo-tiempo-real' | replace: 'live-camera', 'camara-vivo' | replace: 'gallery', 'galeria' | replace: 'about', 'acerca-de' %}{{ es_url | relative_url }}{% endif %}" class="lang-switch">ES</a></li>
+            <li><a href="{% if page.url == '/pages/' %}{{ '/' | relative_url }}{% else %}{% assign es_url = page.url | replace: '/pages/', '/es/' | replace: 'real-time-monitoring', 'monitoreo-tiempo-real' | replace: 'live-camera', 'camara-vivo' | replace: 'gallery', 'galeria' | replace: 'about', 'acerca-de' | replace: 'publications', 'publicaciones' %}{{ es_url | relative_url }}{% endif %}" class="lang-switch">ES</a></li>
             {% endif %}
         </ul>
     </div>

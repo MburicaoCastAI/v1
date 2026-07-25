@@ -23,6 +23,49 @@ lang: es
             <p><a href="https://www.ing.una.py/FIUNA3/?p=84962" target="_blank" style="color: #3b82f6; font-weight: 600;">FIUNA Publicaciones - Reporte del Evento Reciente <i class="fas fa-external-link-alt"></i></a></p>
         </div>
 
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Lluvia nocturna.jpeg" alt="Lluvia nocturna">
+                <div class="gallery-caption">Lluvia nocturna</div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Monitoreo Mburicao.jpg" alt="Monitoreo Mburicao">
+                <div class="gallery-caption">Monitoreo Mburicao</div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Nivel mañana.jpeg" alt="Nivel mañana">
+                <div class="gallery-caption">Nivel mañana</div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Pico tarde.jpeg" alt="Pico tarde">
+                <div class="gallery-caption">Pico tarde</div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Registro noche.jpeg" alt="Registro noche">
+                <div class="gallery-caption">Registro noche</div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Brasil.jpg" alt="Brasil">
+                <div class="gallery-caption">Brasil</div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Evelyn Paredes y Venus Ayala con el Dr. Leonardo Santos.jpg" alt="Evelyn Paredes y Venus Ayala con el Dr. Leonardo Santos">
+                <div class="gallery-caption">Evelyn Paredes y Venus Ayala con el Dr. Leonardo Santos</div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Evelyn Paredes, Diego Stalder, Victoria Paredes y Venus Ayala.jpg" alt="Evelyn Paredes, Diego Stalder, Victoria Paredes y Venus Ayala">
+                <div class="gallery-caption">Evelyn, Diego, Victoria y Venus</div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Francisco González, Evelyn Paredes, Diego Stalder, Victoria, Héctor Velázquez y Andrés Wehrle.jpg" alt="Francisco González, Evelyn Paredes, Diego Stalder, Victoria, Héctor Velázquez y Andrés Wehrle">
+                <div class="gallery-caption">Equipo de investigación</div>
+            </div>
+            <div class="gallery-item">
+                <img src="{{ site.baseurl }}/files/images/Jazmín Ojeda y Francisco González.jpg" alt="Jazmín Ojeda y Francisco González">
+                <div class="gallery-caption">Jazmín Ojeda y Francisco González</div>
+            </div>
+        </div>
+
 
         <style>
             .gallery-grid {

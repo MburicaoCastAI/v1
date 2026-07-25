@@ -33,35 +33,54 @@ lang: en
             </div>
         </div>
 
-        <div class="info-box">
-            <h3><i class="fas fa-lightbulb"></i> Research Models</h3>
-            <p><strong>Key Findings:</strong></p>
-            <ul style="margin-left: 1.5rem;">
-                <li><strong>Regression Model Performance:</strong> R² = 0.8209, RMSE = 0.3509m, MAPE = 31.27% (40-minute prediction horizon)</li>
-                <li><strong>Classification Model Performance:</strong> F1-score = 0.66, Recall = 85%, Precision = 54% (50-minute prediction horizon)</li>
-                <li><strong>Prediction Target:</strong> Water level peaks exceeding 1.0 meters</li>
-                <li><strong>Data Frequency:</strong> 10-minute intervals from 3 weather stations</li>
-            </ul>
+        <div class="publication-card" data-aos="fade-up">
+            <h4><i class="fas fa-chalkboard"></i> ERMAC 2026 Posters</h4>
+            <p>This section contains the research presented at the ERMAC 2026 conference, showcasing different facets of the Mburicaó water monitoring project.</p>
+            
+            <div style="margin-top: 1.5rem;">
+                <!-- Poster 1: Land Cover Classification -->
+                <div style="margin-bottom: 2.5rem; padding: 1.5rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; background-color: #ffffff;">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div>
+                            <img src="{{ site.baseurl }}/files/images/POSTER%20ERMAC/POSTER%20ERMAC-1.png" alt="Poster: Integrating Random Forest and Shadow Post-processing for Optimized Land Use and Land Cover Classification in GEE" style="width: 100%; max-width: 600px; height: auto; border: 1px solid #e2e8f0; border-radius: 0.375rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                        </div>
+                        <div>
+                            <h5 style="font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Integrating Random Forest and Shadow Post-processing for Optimized Land Use and Land Cover Classification in GEE</h5>
+                            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.5rem;"><strong>Authors:</strong> Jazmin Ojeda Rojas, Diego H. Stalder, Andrés Wehrle, Juan Cardozo</p>
+                            <p style="font-size: 0.95rem; color: #1e293b;"><strong>Abstract:</strong> This work presents a geospatial processing and machine learning approach for land cover classification in the Mburicao Stream Lower Basin using Google Earth Engine. The methodology uses a Random Forest classifier and a specialized shadow-cleaning routine to correct misclassified shadow pixels. The classification achieved an overall accuracy of 82.55% and a Kappa index of 0.7231. The results show that the lower basin comprises 48.45% vegetation, while impervious surfaces (Urban and Roads) cover nearly half of the total extent, a spatial configuration that accelerates surface runoff and explains the occurrence of flash floods.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poster 2: Citizen Science Platform -->
+                <div style="margin-bottom: 2.5rem; padding: 1.5rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; background-color: #ffffff;">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div>
+                            <img src="{{ site.baseurl }}/files/images/PosterERMAC_VenusA_EvelynP-1/PosterERMAC_VenusA_EvelynP-1-1.png" alt="Poster: Urban Flood Monitoring and Visualization System Based on Citizen Science" style="width: 100%; max-width: 600px; height: auto; border: 1px solid #e2e8f0; border-radius: 0.375rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                        </div>
+                        <div>
+                            <h5 style="font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Urban Flood Monitoring and Visualization System Based on Citizen Science</h5>
+                            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.5rem;"><strong>Authors:</strong> Venus Ayala, Evelyn Paredes, Diego H. Stalder, Jazmin Ojeda</p>
+                            <p style="font-size: 0.95rem; color: #1e293b;"><strong>Abstract:</strong> This work proposes the design and implementation of an interactive web platform for urban flood monitoring and visualization based on citizen science. The system enables users to register flood events through web forms, incorporating descriptions, photographs, and geographic location. Developed with Next.js, React, Supabase, and Leaflet, the platform successfully integrates citizen participation with geospatial visualization tools. The system demonstrates the potential of citizen science to complement traditional monitoring systems and support urban risk management associated with flood events.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poster 3: Rainfall Prediction -->
+                <div style="margin-bottom: 1rem; padding: 1.5rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; background-color: #ffffff;">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div>
+                            <img src="{{ site.baseurl }}/files/images/posterERMAC_VictoriaParedes-1/posterERMAC_VictoriaParedes-1-1.png" alt="Poster: Short-Term Rainfall Prediction Applied to an Urban Basin" style="width: 100%; max-width: 600px; height: auto; border: 1px solid #e2e8f0; border-radius: 0.375rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                        </div>
+                        <div>
+                            <h5 style="font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Short-Term Rainfall Prediction Applied to an Urban Basin</h5>
+                            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.5rem;"><strong>Authors:</strong> Victoria Paredes, Diego H. Stalder, Jazmin Ojeda, Andrés Wehrle</p>
+                            <p style="font-size: 0.95rem; color: #1e293b;"><strong>Abstract:</strong> This work presents a machine learning approach for short-term rainfall prediction using pluviometric time series from automatic rainfall stations in an urban basin. Using data from five stations with 10-minute resolution, the study evaluates Linear Regression, Random Forest, and XGBoost models to predict rainfall peak intensity, event duration, and future 30-minute accumulation. Results show that tree-based models (especially XGBoost and Random Forest) outperform linear regression, indicating nonlinear relationships in rainfall dynamics. The multistation XGBoost model achieved an R² ≈ 0.56 for accumulated rainfall prediction.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="info-box">
-            <h3><i class="fas fa-handshake"></i> International Collaboration</h3>
-            <p>This research is part of an international collaboration project:</p>
-            <ul style="margin-left: 1.5rem;">
-                <li><strong>International Partner:</strong> Dr. Leonardo Santos (IFASt Project)</li>
-                <li>Collaboration focuses on applying advanced machine learning and IoT technologies for water resource management in urban environments</li>
-                <li>Project aims to develop practical early warning systems for data-scarce urban areas</li>
-            </ul>
-        </div>
 
-        <div class="info-box">
-            <h3><i class="fas fa-graduation-cap"></i> Institutional Partners</h3>
-            <p><strong>Funding & Support:</strong></p>
-            <ul style="margin-left: 1.5rem;">
-                <li><strong>Initial Station Installation:</strong> Installed by Dr. Andrés Wehrle, funded by FIUNA grant</li>
-                <li><strong>Network Expansion:</strong> Supported by <a href="https://pubiabm.com.py/" target="_blank" style="color: #3b82f6;">PUBIABM (Programa Universitario de Becas para la Investigación Andrés Borgognon Montero)</a></li>
-                <li>Institutional support from the Universidad Nacional de Asunción and Faculty of Engineering (FIUNA)</li>
-            </ul>
-        </div>
-    </div>
 </div>

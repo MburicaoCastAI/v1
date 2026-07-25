@@ -18,63 +18,132 @@ layout: default-bilingual
         
         <div class="gallery-grid">
             <div class="gallery-item" data-aos="fade-up">
-                <img src="https://source.unsplash.com/random/400x300/?river,monitoring" alt="{% if page.lang == 'es' %}Estación de monitoreo{% else %}Monitoring station{% endif %}">
-                <div class="gallery-caption">{% if page.lang == 'es' %}Estación de monitoreo{% else %}Monitoring station{% endif %}</div>
+                <img src="{{ site.baseurl }}/files/images/Monitoreo Mburicao.jpg" alt="{% if page.lang == 'es' %}Estación de monitoreo{% else %}Monitoring station{% endif %}">
+                <div class="gallery-caption">{% if page.lang == 'es' %}Monitoreo Mburicaó{% else %}Mburicaó Monitoring{% endif %}</div>
             </div>
             <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
-                <img src="https://source.unsplash.com/random/400x300/?stream,water" alt="{% if page.lang == 'es' %}Arroyo Mburicaó{% else %}Mburicaó stream{% endif %}">
-                <div class="gallery-caption">{% if page.lang == 'es' %}Arroyo Mburicaó{% else %}Mburicaó stream{% endif %}</div>
+                <img src="{{ site.baseurl }}/files/images/Pico tarde.jpeg" alt="{% if page.lang == 'es' %}Arroyo Mburicaó{% else %}Mburicaó stream{% endif %}">
+                <div class="gallery-caption">{% if page.lang == 'es' %}Crecida del arroyo{% else %}Stream rise{% endif %}</div>
             </div>
             <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
-                <img src="https://source.unsplash.com/random/400x300/?fieldwork,science" alt="{% if page.lang == 'es' %}Trabajo de campo{% else %}Fieldwork{% endif %}">
-                <div class="gallery-caption">{% if page.lang == 'es' %}Trabajo de campo{% else %}Fieldwork{% endif %}</div>
+                <img src="{{ site.baseurl }}/files/images/Brasil.jpg" alt="{% if page.lang == 'es' %}Presentación en Brasil{% else %}Presentation in Brazil{% endif %}">
+                <div class="gallery-caption">{% if page.lang == 'es' %}ERMAC 2026, Brasil{% else %}ERMAC 2026, Brazil{% endif %}</div>
             </div>
             <div class="gallery-item" data-aos="fade-up" data-aos-delay="300">
-                <img src="https://source.unsplash.com/random/400x300/?community,people" alt="{% if page.lang == 'es' %}Comunidad{% else %}Community{% endif %}">
-                <div class="gallery-caption">{% if page.lang == 'es' %}Comunidad{% else %}Community{% endif %}</div>
+                <img src="{{ site.baseurl }}/files/images/Francisco González, Evelyn Paredes, Diego Stalder, Victoria, Héctor Velázquez y Andrés Wehrle.jpg" alt="{% if page.lang == 'es' %}Equipo de investigación{% else %}Research team{% endif %}">
+                <div class="gallery-caption">{% if page.lang == 'es' %}Equipo de investigación{% else %}Research team{% endif %}</div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="video-section">
+<section class="news-section">
     <div class="container">
         <div class="section-header" data-aos="fade-up">
             {% if page.lang == 'es' %}
-            <h2>Noticias</h2>
+            <h2>Noticias y Eventos</h2>
+            <p>Últimas novedades y presentaciones del proyecto</p>
+            {% else %}
+            <h2>News and Events</h2>
+            <p>Latest updates and project presentations</p>
+            {% endif %}
+        </div>
+
+        <div class="news-grid" data-aos="fade-up">
+            {% if page.lang == 'es' %}
+            <a href="https://www.abc.com.py/nacionales/2026/07/23/fiuna-impulsa-una-plataforma-que-podria-anticipar-las-inundaciones-en-asuncion/" target="_blank" class="news-card">
+                <i class="fas fa-newspaper"></i>
+                <h3>FIUNA impulsa plataforma</h3>
+                <p>FIUNA impulsa una plataforma que podría anticipar las inundaciones en Asunción, destacada en ABC Color.</p>
+            </a>
             
-                <li><a href="https://www.abc.com.py/nacionales/2026/07/23/fiuna-impulsa-una-plataforma-que-podria-anticipar-las-inundaciones-en-asuncion/" target="_blank">
-                    ABC: FIUNA impulsa una plataforma que podría anticipar las inundaciones en Asunción
-                </a></li>
-                <li><a href="https://www.ing.una.py/FIUNA3/?p=87008" target="_blank">
-                    Estudiantes e investigadores de la FIUNA presentan trabajos sobre alerta de inundaciones e internacionalización en el ERMAC 2026
-                </a></li>
-</a>
-       <li> <a href="https://www.ing.una.py/FIUNA3/?p=84962" target="_blank">
-    Precipitación histórica del 16 de marzo 2026 en la Cuenca del Arroyo Mburicao
-</a></li>
+            <a href="https://www.ing.una.py/FIUNA3/?p=87008" target="_blank" class="news-card highlight">
+                <i class="fas fa-globe-americas"></i>
+                <h3>Presentación en Brasil (ERMAC 2026)</h3>
+                <p>Estudiantes e investigadores de la FIUNA presentan exitosamente sus trabajos sobre alerta temprana de inundaciones en el ERMAC 2026, realizado en Brasil, consolidando la internacionalización del proyecto.</p>
+            </a>
 
+            <a href="https://www.ing.una.py/FIUNA3/?p=84962" target="_blank" class="news-card">
+                <i class="fas fa-cloud-showers-heavy"></i>
+                <h3>Datos de Precipitación</h3>
+                <p>Análisis de la precipitación histórica del 16 de marzo de 2026 en la Cuenca del Arroyo Mburicaó.</p>
+            </a>
+            {% else %}
+            <a href="https://www.abc.com.py/nacionales/2026/07/23/fiuna-impulsa-una-plataforma-que-podria-anticipar-las-inundaciones-en-asuncion/" target="_blank" class="news-card">
+                <i class="fas fa-newspaper"></i>
+                <h3>FIUNA Platform Initiative</h3>
+                <p>FIUNA promotes a platform that could anticipate floods in Asunción, as featured on ABC Color.</p>
+            </a>
+            
+            <a href="https://www.ing.una.py/FIUNA3/?p=87008" target="_blank" class="news-card highlight">
+                <i class="fas fa-globe-americas"></i>
+                <h3>Presentation in Brazil (ERMAC 2026)</h3>
+                <p>Students and researchers from FIUNA successfully presented their work on flood early warning systems at ERMAC 2026 in Brazil, strengthening the project's internationalization.</p>
+            </a>
 
-                 {% else %}
-            <h2>News</h2>
-            <li><a href="https://www.abc.com.py/nacionales/2026/07/23/fiuna-impulsa-una-plataforma-que-podria-anticipar-las-inundaciones-en-asuncion/" target="_blank">
-            ABC: FIUNA promotes a platform that could anticipate floods in Asunción
-        </a></li>
-           <li><a href="https://www.ing.una.py/FIUNA3/?p=87008" target="_blank">
-    Students and researchers from FIUNA present papers on flood early warning and internationalization at ERMAC 2026
-</a></li>
-   <li>   <a href="https://www.ing.una.py/FIUNA3/?p=84962" target="_blank">
-    Historical rainfall data from March 16, 2026 in the Mburicao Stream Watershed
-</a></li>  
+            <a href="https://www.ing.una.py/FIUNA3/?p=84962" target="_blank" class="news-card">
+                <i class="fas fa-cloud-showers-heavy"></i>
+                <h3>Rainfall Data</h3>
+                <p>Analysis of historical rainfall data from March 16, 2026, in the Mburicaó Stream Watershed.</p>
+            </a>
             {% endif %}
         </div>
         
+        <div class="section-header" data-aos="fade-up" style="margin-top: 4rem;">
+            {% if page.lang == 'es' %}
+            <h2>Reportaje en Video</h2>
+            {% else %}
+            <h2>Video Report</h2>
+            {% endif %}
+        </div>
         <div class="video-container" data-aos="fade-up">
             <div class="video-wrapper">
                 <iframe src="https://www.youtube.com/embed/oVp5AV5-Bpo" frameborder="0" allowfullscreen></iframe>
             </div>
             <div class="video-description">
                 <p>{% if page.lang == 'es' %}Presentación del reportaje periodístico más reciente.{% else %}Presentation of the most recent news report.{% endif %}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features-section" style="background: #f8fafc;">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            {% if page.lang == 'es' %}
+            <h2>Prototipos del Proyecto</h2>
+            <p>Explora nuestras herramientas interactivas y tableros de control</p>
+            {% else %}
+            <h2>Project Prototypes</h2>
+            <p>Explore our interactive tools and dashboards</p>
+            {% endif %}
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up">
+                <i class="fas fa-chart-line"></i>
+                {% if page.lang == 'es' %}
+                <h3>Panel Hidrometeorológico</h3>
+                <p>Prototipo de visualización y predicción para el análisis de datos.</p>
+                <a href="https://hydromet-dashboard.vercel.app/" target="_blank" class="btn-link">Ver Prototipo <i class="fas fa-arrow-right"></i></a>
+                {% else %}
+                <h3>Hydrometeorological Dashboard</h3>
+                <p>Visualization and prediction prototype for data analysis.</p>
+                <a href="https://hydromet-dashboard.vercel.app/" target="_blank" class="btn-link">View Prototype <i class="fas fa-arrow-right"></i></a>
+                {% endif %}
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-users"></i>
+                {% if page.lang == 'es' %}
+                <h3>Ciencia Ciudadana</h3>
+                <p>Plataforma para el reporte comunitario y mapeo de eventos.</p>
+                <a href="https://mapa-chi-steel.vercel.app/mapa" target="_blank" class="btn-link">Ver Mapa <i class="fas fa-arrow-right"></i></a>
+                {% else %}
+                <h3>Citizen Science</h3>
+                <p>Platform for community reporting and event mapping.</p>
+                <a href="https://mapa-chi-steel.vercel.app/mapa" target="_blank" class="btn-link">View Map <i class="fas fa-arrow-right"></i></a>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -123,6 +192,66 @@ layout: default-bilingual
         padding: 1rem;
         text-align: center;
         font-weight: 600;
+    }
+    
+    .news-section {
+        padding: 4rem 2rem;
+        background: #ffffff;
+    }
+    
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto 3rem auto;
+    }
+
+    .news-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f8fafc;
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid #e2e8f0;
+    }
+
+    .news-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    .news-card.highlight {
+        background: #ebf8ff;
+        border-color: #bee3f8;
+    }
+
+    .news-card.highlight i {
+        color: #2b6cb0;
+    }
+
+    .news-card i {
+        font-size: 2.5rem;
+        color: #3b82f6;
+        margin-bottom: 1.5rem;
+    }
+
+    .news-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: #1e293b;
+    }
+
+    .news-card p {
+        color: #64748b;
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
     
     .video-section {

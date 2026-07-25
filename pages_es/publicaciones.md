@@ -33,35 +33,54 @@ lang: es
             </div>
         </div>
 
-        <div class="info-box">
-            <h3><i class="fas fa-lightbulb"></i> Modelos de Investigación</h3>
-            <p><strong>Hallazgos Clave:</strong></p>
-            <ul style="margin-left: 1.5rem;">
-                <li><strong>Desempeño del Modelo de Regresión:</strong> R² = 0.8209, RMSE = 0.3509m, MAPE = 31.27% (horizonte de predicción de 40 minutos)</li>
-                <li><strong>Desempeño del Modelo de Clasificación:</strong> F1-score = 0.66, Recuperación = 85%, Precisión = 54% (horizonte de predicción de 50 minutos)</li>
-                <li><strong>Objetivo de Predicción:</strong> Picos de nivel de agua que excedan 1.0 metros</li>
-                <li><strong>Frecuencia de Datos:</strong> Intervalos de 10 minutos de 3 estaciones meteorológicas</li>
-            </ul>
+        <div class="publication-card" data-aos="fade-up">
+            <h4><i class="fas fa-chalkboard"></i> Pósters ERMAC 2026</h4>
+            <p>Esta sección contiene las investigaciones presentadas en la conferencia ERMAC 2026, destacando diferentes aspectos del proyecto de monitoreo de agua del Mburicaó.</p>
+            
+            <div style="margin-top: 1.5rem;">
+                <!-- Poster 1: Land Cover Classification -->
+                <div style="margin-bottom: 2.5rem; padding: 1.5rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; background-color: #ffffff;">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div>
+                            <img src="{{ site.baseurl }}/files/images/POSTER%20ERMAC/POSTER%20ERMAC-1.png" alt="Póster: Integración de Random Forest y post-procesamiento de sombras para la clasificación optimizada de uso y cobertura del suelo en GEE" style="width: 100%; max-width: 600px; height: auto; border: 1px solid #e2e8f0; border-radius: 0.375rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                        </div>
+                        <div>
+                            <h5 style="font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Integración de Random Forest y post-procesamiento de sombras para la clasificación optimizada de uso y cobertura del suelo en GEE</h5>
+                            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.5rem;"><strong>Autores:</strong> Jazmin Ojeda Rojas, Diego H. Stalder, Andrés Wehrle, Juan Cardozo</p>
+                            <p style="font-size: 0.95rem; color: #1e293b;"><strong>Resumen:</strong> Este trabajo presenta un enfoque de procesamiento geoespacial y aprendizaje automático para la clasificación de la cobertura del suelo en la Cuenca Baja del Arroyo Mburicaó utilizando Google Earth Engine. La metodología emplea un clasificador Random Forest y una rutina especializada de limpieza de sombras para corregir píxeles de sombra mal clasificados. La clasificación alcanzó una precisión general del 82.55% y un índice Kappa de 0.7231. Los resultados muestran que la cuenca baja comprende un 48.45% de vegetación, mientras que las superficies impermeables (Urbano y Caminos) cubren casi la mitad de la extensión total, una configuración espacial que acelera el escurrimiento superficial y explica la ocurrencia de inundaciones repentinas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poster 2: Citizen Science Platform -->
+                <div style="margin-bottom: 2.5rem; padding: 1.5rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; background-color: #ffffff;">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div>
+                            <img src="{{ site.baseurl }}/files/images/PosterERMAC_VenusA_EvelynP-1/PosterERMAC_VenusA_EvelynP-1-1.png" alt="Póster: Sistema de monitoreo y visualización de inundaciones urbanas basado en ciencia ciudadana" style="width: 100%; max-width: 600px; height: auto; border: 1px solid #e2e8f0; border-radius: 0.375rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                        </div>
+                        <div>
+                            <h5 style="font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Sistema de monitoreo y visualización de inundaciones urbanas basado en ciencia ciudadana</h5>
+                            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.5rem;"><strong>Autores:</strong> Venus Ayala, Evelyn Paredes, Diego H. Stalder, Jazmin Ojeda</p>
+                            <p style="font-size: 0.95rem; color: #1e293b;"><strong>Resumen:</strong> Este trabajo propone el diseño e implementación de una plataforma web interactiva para el monitoreo y visualización de inundaciones urbanas basada en ciencia ciudadana. El sistema permite a los usuarios registrar eventos de inundación a través de formularios web, incorporando descripciones, fotografías y ubicación geográfica. Desarrollada con Next.js, React, Supabase y Leaflet, la plataforma integra exitosamente la participación ciudadana con herramientas de visualización geoespacial. El sistema demuestra el potencial de la ciencia ciudadana para complementar los sistemas de monitoreo tradicionales y apoyar la gestión de riesgos urbanos asociados a eventos de inundación.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Poster 3: Rainfall Prediction -->
+                <div style="margin-bottom: 1rem; padding: 1.5rem; border: 1px solid #e2e8f0; border-radius: 0.5rem; background-color: #ffffff;">
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div>
+                            <img src="{{ site.baseurl }}/files/images/posterERMAC_VictoriaParedes-1/posterERMAC_VictoriaParedes-1-1.png" alt="Póster: Predicción de precipitaciones a corto plazo aplicada a una cuenca urbana" style="width: 100%; max-width: 600px; height: auto; border: 1px solid #e2e8f0; border-radius: 0.375rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                        </div>
+                        <div>
+                            <h5 style="font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Predicción de precipitaciones a corto plazo aplicada a una cuenca urbana</h5>
+                            <p style="font-size: 0.95rem; color: #475569; margin-bottom: 0.5rem;"><strong>Autores:</strong> Victoria Paredes, Diego H. Stalder, Jazmin Ojeda, Andrés Wehrle</p>
+                            <p style="font-size: 0.95rem; color: #1e293b;"><strong>Resumen:</strong> Este trabajo presenta un enfoque de aprendizaje automático para la predicción de lluvias a corto plazo utilizando series temporales pluviométricas de estaciones automáticas en una cuenca urbana. Utilizando datos de cinco estaciones con resolución de 10 minutos, el estudio evalúa modelos de Regresión Lineal, Random Forest y XGBoost para predecir la intensidad máxima de lluvia, la duración del evento y la acumulación futura a 30 minutos. Los resultados muestran que los modelos basados en árboles (especialmente XGBoost y Random Forest) superan a la regresión lineal, indicando relaciones no lineales en la dinámica de las precipitaciones. El modelo XGBoost multiestación alcanzó un R² ≈ 0.56 para la predicción de precipitación acumulada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="info-box">
-            <h3><i class="fas fa-handshake"></i> Colaboración Internacional</h3>
-            <p>Esta investigación es parte de un proyecto de colaboración internacional:</p>
-            <ul style="margin-left: 1.5rem;">
-                <li><strong>Socio Internacional:</strong> Dr. Leonardo Santos (Proyecto IFASt)</li>
-                <li>La colaboración se enfoca en aplicar tecnologías avanzadas de aprendizaje automático e IoT para la gestión de recursos hídricos en ambientes urbanos</li>
-                <li>El proyecto busca desarrollar sistemas de alerta temprana prácticos para áreas urbanas con datos escasos</li>
-            </ul>
-        </div>
-
-        <div class="info-box">
-            <h3><i class="fas fa-graduation-cap"></i> Socios Institucionales</h3>
-            <p><strong>Financiamiento y Apoyo:</strong></p>
-            <ul style="margin-left: 1.5rem;">
-                <li><strong>Instalación de Estación Inicial:</strong> Instalada por Dr. Andrés Wehrle, financiada por beca FIUNA</li>
-                <li><strong>Expansión de Red:</strong> Apoyada por <a href="https://pubiabm.com.py/" target="_blank">PUBIABM (Programa Universitario de Becas para la Investigación Andrés Borgognon Montero)</a></li>
-                <li>Apoyo institucional de la Universidad Nacional de Asunción y Facultad de Ingeniería (FIUNA)</li>
-            </ul>
-        </div>
     </div>
 </div>

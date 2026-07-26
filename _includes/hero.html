@@ -1,5 +1,5 @@
-<section class="hero">
-    <div class="hero-content" data-aos="fade-up">
+<section class="hero hero-split">
+    <div class="hero-text" data-aos="fade-right">
         <h1>Monitoreo Urbano del Arroyo Mburicao</h1>
         <p class="hero-subtitle">Proyecto Piloto · Ciencia Ciudadana · Gestión Hídrica Inteligente</p>
         <div class="hero-badges">
@@ -8,4 +8,124 @@
             <span class="badge"><i class="fas fa-users"></i> Ciencia Ciudadana</span>
         </div>
     </div>
+    <div class="hero-visuals" data-aos="fade-left" data-aos-delay="200">
+        <div class="visual-card">
+            <div class="visual-label"><i class="fas fa-map-marked-alt"></i> Cuenca del Arroyo Mburicaó</div>
+            <img src="{{ site.baseurl }}/files/images/cuenca.png" alt="Mapa de la Cuenca del Arroyo Mburicaó">
+        </div>
+        <div class="visual-card">
+            <div class="visual-label"><i class="fas fa-video"></i> Cámara en Vivo</div>
+            <img id="hero-live-cam" src="https://lmeserver.tail8113d2.ts.net/panels/lastfoto.jpg" alt="Cámara en vivo del Arroyo Mburicaó">
+        </div>
+    </div>
 </section>
+
+<style>
+    .hero-split {
+        background: linear-gradient(135deg, #1e3a5f 0%, #3b82f6 60%, #8b5cf6 100%);
+        color: white;
+        padding: 110px 3rem 60px;
+        margin-top: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 3rem;
+        flex-wrap: wrap;
+        min-height: 480px;
+    }
+
+    .hero-text {
+        flex: 1 1 380px;
+        max-width: 600px;
+    }
+
+    .hero-text h1 {
+        font-size: clamp(1.8rem, 3.5vw, 3rem);
+        font-weight: 800;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .hero-text .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .hero-text .hero-badges {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .hero-text .badge {
+        background: rgba(255,255,255,0.18);
+        backdrop-filter: blur(6px);
+        padding: 0.5rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    /* --- Hero visuals: two cards side by side --- */
+    .hero-visuals {
+        flex: 1 1 500px;
+        display: flex;
+        gap: 1.25rem;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .visual-card {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.25);
+        border-radius: 1.25rem;
+        overflow: hidden;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+        flex: 1 1 0;
+        min-width: 0;       /* allow flex shrink */
+        max-width: 320px;
+    }
+
+    .visual-label {
+        background: rgba(0,0,0,0.35);
+        color: rgba(255,255,255,0.9);
+        font-size: 0.82rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        letter-spacing: 0.04em;
+        white-space: nowrap;
+    }
+
+    /* Images: full width, natural aspect ratio, no cropping */
+    .visual-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+        .hero-split {
+            flex-direction: column;
+            padding: 100px 1.5rem 40px;
+            text-align: center;
+        }
+        .hero-text .hero-badges {
+            justify-content: center;
+        }
+        .hero-visuals {
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .visual-card {
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+</style>

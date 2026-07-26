@@ -19,17 +19,9 @@ lang: es
             <p><strong>Frecuencia de Actualización:</strong> Transmisión en vivo continuo</p>
         </div>
 
-        <div class="camera-placeholder">
-            <img src="https://via.placeholder.com/800x450/3b82f6/ffffff?text=Streaming+Coming+Soon" alt="Cámara en vivo próximamente" style="width: 100%; max-width: 800px; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <div class="placeholder-text">
-                <h3>Transmisión en Vivo Próximamente</h3>
-                <p>La transmisión en vivo de la cámara se integrará aquí para proporcionar monitoreo visual en tiempo real del arroyo Mburicaó.</p>
-            </div>
-        </div>
-
-        <div class="info-box" style="background: #f0f9ff; border-left: 4px solid #3b82f6;">
-            <h3>Transmisión de Cámara Próximamente</h3>
-            <p>Actualmente estamos configurando la transmisión en vivo de la cámara. La integración de transmisión estará disponible en breve.</p>
+       <div class="visual-card">
+            <div class="visual-label"><i class="fas fa-video"></i> Cámara en Vivo</div>
+            <img id="hero-live-cam" src="https://lmeserver.tail8113d2.ts.net/panels/lastfoto.jpg" alt="Cámara en vivo del Arroyo Mburicaó">
         </div>
     </div>
 </div>

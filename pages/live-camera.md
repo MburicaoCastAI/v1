@@ -19,17 +19,9 @@ lang: en
             <p><strong>Update Frequency:</strong> Continuous live stream</p>
         </div>
 
-        <div class="camera-placeholder">
-            <img src="https://via.placeholder.com/800x450/3b82f6/ffffff?text=Streaming+Coming+Soon" alt="Live camera coming soon" style="width: 100%; max-width: 800px; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <div class="placeholder-text">
-                <h3>Live Streaming Coming Soon</h3>
-                <p>The live camera feed will be integrated here to provide real-time visual monitoring of the Mburicaó stream.</p>
-            </div>
-        </div>
-
-        <div class="info-box" style="background: #f0f9ff; border-left: 4px solid #3b82f6;">
-            <h3>Camera Feed Coming Soon</h3>
-            <p>We're currently setting up the live camera feed. The streaming integration will be available shortly.</p>
+        <div class="visual-card">
+            <div class="visual-label"><i class="fas fa-video"></i> Cámara en Vivo</div>
+            <img id="hero-live-cam" src="https://lmeserver.tail8113d2.ts.net/panels/lastfoto.jpg" alt="Cámara en vivo del Arroyo Mburicaó">
         </div>
     </div>
 </div>

@@ -73,10 +73,5 @@ defaults:
       layout: "home-bilingual"
       lang: "es"
 
-# Title
-title:
-  #{% if page.lang == "es" %}
-  {{ page.title | default: site.title_es }}
-  #{% else %}
-  #  {{ page.title | default: site.title_en }}
-  #{% endif %}
+# Title (plain string - bilingual logic is handled in the layout)
+title: "Monitoreo Urbano Mburicao | Urban Monitoring Mburicao"

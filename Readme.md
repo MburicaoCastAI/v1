@@ -63,7 +63,7 @@ Plataforma de monitoreo hidrológico que combina sensores IoT, inteligencia arti
 
 ## 📊 Datos en Vivo
 
-- **Nivel de agua:** 
+- **Nivel de agua:** Sensor de nivel en el Arroyo Mburicao.
 - **Precipitación:** 
 - **Frecuencia:** Intervalos de 5 minutos
 

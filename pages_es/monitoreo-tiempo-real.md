@@ -11,6 +11,11 @@ lang: es
     <div class="container">
         <h2>Monitoreo de Nivel de Agua y Precipitación</h2>
         <p>Monitoreo en vivo de niveles de agua y datos de precipitación del Arroyo Mburicaó en Asunción, Paraguay.</p>
+    <!-- PRONÓSTICO DEL NIVEL ... -->
+    <div class="pronostico-mburicao"
+            data-url="https://raw.githubusercontent.com/fedemoranf-alt/mburicao-pronostico/data/forecast.json"
+            data-lang="es"></div>
+    <script src="{{ '/assets/js/pronostico.js' | relative_url }}" defer></script>
         
         <div class="monitoring-grid">
             <div class="monitoring-item">

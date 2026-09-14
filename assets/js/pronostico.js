@@ -40,7 +40,7 @@
 
   // =========================================================== 1. AJUSTES ===
 
-  const VERSION = "1.0";
+  const VERSION = "1.1";
 
   // El JSON trae un campo "version_formato". Si no coincide con este número, el
   // archivo cambió de estructura y esta página no sabe leerlo: se avisa en vez
@@ -95,6 +95,12 @@
       leyRango: "Rango probable (90 %)",
       leyUmbral: "Umbral de referencia",
       marcaUltimo: "último dato",
+      leyLluvia: "Lluvia (mm cada 10 min)",
+      tituloLluvia: "Lluvia medida · mm cada 10 min",
+      sinLluvia: "sin lluvia en estas horas",
+      lluviaHora: function (mm) { return "lluvia en la última hora: " + mm + " mm"; },
+      notaLluvia: "La lluvia es la que mide el pluviómetro de la estación del arroyo, y se muestra " +
+        "como referencia: el pronóstico se calcula solo con el nivel medido.",
       aviso: "Producto experimental de investigación (tesis de maestría, FIUNA). No es una alerta oficial.",
       notaRango: "El rango probable contiene el nivel real 9 de cada 10 veces, en promedio a lo " +
         "largo del tiempo; no es una garantía para cada pronóstico.",
@@ -135,6 +141,12 @@
       leyRango: "Likely range (90%)",
       leyUmbral: "Reference threshold",
       marcaUltimo: "last data",
+      leyLluvia: "Rain (mm per 10 min)",
+      tituloLluvia: "Measured rain · mm per 10 min",
+      sinLluvia: "no rain in these hours",
+      lluviaHora: function (mm) { return "rain in the last hour: " + mm + " mm"; },
+      notaLluvia: "Rain is measured by the stream station's rain gauge and shown for reference: " +
+        "the forecast is computed from the measured level only.",
       aviso: "Experimental research product (master's thesis, FIUNA). Not an official warning.",
       notaRango: "The likely range contains the actual level 9 times out of 10 on average over " +
         "time; it is not a guarantee for each individual forecast.",
@@ -200,14 +212,35 @@
     return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * potencia;
   }
 
+  /** Lluvia acumulada en la hora que termina en el último dato; null si el JSON no la trae. */
+  function lluviaUltimaHora(d) {
+    const fin = instante(d.ultimo_dato);
+    const puntos = (d.observado || []).filter(function (p) { return typeof p.lluvia_mm === "number"; });
+    if (!puntos.length || !isFinite(fin)) return null;
+    return puntos.reduce(function (suma, p) {
+      const x = instante(p.hora);
+      return (x > fin - 3600e3 && x <= fin) ? suma + p.lluvia_mm : suma;
+    }, 0);
+  }
+
   // =========================================================== 4. GRÁFICO ===
 
   function grafico(d, t, ancho) {
     // El dibujo usa el ancho REAL disponible. Si fuera fijo (720), en un celular
     // el navegador lo achicaría entero, letras incluidas: los números de los ejes
     // quedaban de ~5 px, ilegibles (visto en la demo el 14-sep).
-    const W = ancho, H = Math.round(Math.min(340, Math.max(220, ancho * 0.4)));
     const IZQ = 60, DER = 18, ARR = 22, ABA = 32;
+
+    // Franja de lluvia debajo del nivel, con el mismo eje de tiempo. Solo si el JSON
+    // la trae: los publicados antes del 14-sep no tienen "lluvia_mm".
+    const lluvias = (d.observado || [])
+      .map(function (p) { return { x: instante(p.hora), mm: p.lluvia_mm }; })
+      .filter(function (p) { return isFinite(p.x) && typeof p.mm === "number"; });
+    const ALTO_LLUVIA = lluvias.length ? 64 : 0, SEPARACION = lluvias.length ? 30 : 0;
+
+    const W = ancho;
+    const H = Math.round(Math.min(340, Math.max(220, ancho * 0.4))) + ALTO_LLUVIA + SEPARACION;
+    const BASE_NIVEL = H - ABA - ALTO_LLUVIA - SEPARACION;   // borde inferior del gráfico de nivel
 
     const medido = (d.observado || [])
       .map(function (p) { return { x: instante(p.hora), y: p.nivel }; })
@@ -238,7 +271,7 @@
     y0 -= margen; y1 += margen;
 
     const sx = function (x) { return IZQ + (x - x0) / (x1 - x0) * (W - IZQ - DER); };
-    const sy = function (y) { return ARR + (y1 - y) / (y1 - y0) * (H - ARR - ABA); };
+    const sy = function (y) { return ARR + (y1 - y) / (y1 - y0) * (BASE_NIVEL - ARR); };
     const f1 = function (v) { return v.toFixed(1); };
 
     let svg = "";
@@ -288,6 +321,38 @@
         escapar(t.marcaUltimo) + '</text>';
     }
 
+    // --- lluvia: una barra por intervalo de 10 minutos, en su propia franja -------
+    // Solo como referencia: el modelo no la usa (R9). Escala propia, con un mínimo
+    // de 1 mm para que una llovizna no parezca un diluvio.
+    if (lluvias.length) {
+      const arriba = BASE_NIVEL + SEPARACION, abajo = H - ABA;
+      const maximo = Math.max(1, Math.max.apply(null, lluvias.map(function (p) { return p.mm; })));
+      const anchoBarra = Math.max(1.5, (sx(x0 + 600000) - sx(x0)) * 0.8);
+      svg += '<text x="' + IZQ + '" y="' + (arriba - 9) + '" class="pm-eje">' + escapar(t.tituloLluvia) + "</text>" +
+        '<line x1="' + IZQ + '" x2="' + (W - DER) + '" y1="' + abajo + '" y2="' + abajo + '" class="pm-rejilla"/>' +
+        '<text x="' + (IZQ - 8) + '" y="' + arriba + '" class="pm-eje" text-anchor="end" dominant-baseline="hanging">' +
+        numero(maximo, 1, t) + " mm</text>" +
+        '<text x="' + (IZQ - 8) + '" y="' + abajo + '" class="pm-eje" text-anchor="end">0</text>';
+      let hubo = false;
+      lluvias.forEach(function (p) {
+        if (p.mm <= 0) return;
+        hubo = true;
+        const alto = Math.max(1, p.mm / maximo * (abajo - arriba));
+        // En los bordes la barra se RECORTA en vez de correrse: corriéndola, la
+        // primera se montaba sobre la segunda (visto en la demo con lluvia, 14-sep).
+        const izq = Math.max(sx(p.x) - anchoBarra / 2, IZQ);
+        const der = Math.min(sx(p.x) + anchoBarra / 2, W - DER);
+        if (der - izq < 0.5) return;
+        svg += '<rect class="pm-lluvia" x="' + f1(izq) + '" y="' + f1(abajo - alto) + '" width="' +
+          f1(der - izq) + '" height="' + f1(alto) + '"/>';
+      });
+      if (!hubo) {
+        const xm = isFinite(origen) ? (IZQ + sx(origen)) / 2 : (IZQ + W - DER) / 2;
+        svg += '<text x="' + f1(xm) + '" y="' + f1((arriba + abajo) / 2) + '" class="pm-eje" ' +
+          'text-anchor="middle" dominant-baseline="middle">' + escapar(t.sinLluvia) + "</text>";
+      }
+    }
+
     // --- nivel medido: se corta donde falta un dato -----------------------------------
     let camino = "", anterior = null;
     medido.forEach(function (p) {
@@ -312,7 +377,7 @@
       escapar(t.aria) + '">' + svg + "</svg>";
   }
 
-  function leyenda(t, conBanda) {
+  function leyenda(t, conBanda, conLluvia) {
     const item = function (muestra, texto) {
       return '<li><svg width="26" height="12" aria-hidden="true">' + muestra + "</svg>" + escapar(texto) + "</li>";
     };
@@ -321,6 +386,7 @@
       item('<line x1="1" x2="25" y1="6" y2="6" class="pm-linea-pro"/>', t.leyPronostico) +
       (conBanda ? item('<rect x="1" y="1" width="24" height="10" class="pm-banda"/>', t.leyRango) : "") +
       item('<line x1="1" x2="25" y1="6" y2="6" class="pm-umbral"/>', t.leyUmbral) +
+      (conLluvia ? item('<rect x="8" y="1" width="10" height="10" class="pm-lluvia"/>', t.leyLluvia) : "") +
       "</ul>";
   }
 
@@ -345,6 +411,7 @@
     if (typeof u.valor === "number" && m) {
       html += '<p class="pm-nota">' + escapar(t.notaUmbral(nivel(u.valor, t), 100 - Number(m[1]), u.periodo)) + "</p>";
     }
+    if (lluviaUltimaHora(d) !== null) html += '<p class="pm-nota">' + escapar(t.notaLluvia) + "</p>";
     return html;
   }
 
@@ -367,16 +434,18 @@
     const viejo = !isFinite(edad) || edad > DESACTUALIZADO_DESDE_MIN;
     const respaldo = d.estado === "fallback_persistence";
 
+    const lluviaHora = lluviaUltimaHora(d);
     let html = '<p class="pm-estado">' +
       escapar(t.actualizado(hora(actualizado), t.hace(duracion(edad, t)))) + " · " +
-      escapar(t.ultimoDato(hora(instante(d.ultimo_dato)))) + "</p>";
+      escapar(t.ultimoDato(hora(instante(d.ultimo_dato)))) +
+      (lluviaHora !== null ? " · " + escapar(t.lluviaHora(numero(lluviaHora, 1, t))) : "") + "</p>";
 
     if (viejo) html += '<p class="pm-alerta pm-alerta-viejo">' + escapar(t.viejo(duracion(edad, t))) + "</p>";
     if (respaldo) html += '<p class="pm-alerta">' + escapar(t.respaldo) + "</p>";
     else if (d.estado !== "ok") html += '<p class="pm-alerta">' + escapar(t.estadoRaro(d.estado)) + "</p>";
 
     html += '<div class="pm-grafico' + (viejo ? " pm-apagado" : "") + '">' + grafico(d, t, ancho) + "</div>";
-    html += leyenda(t, !respaldo);
+    html += leyenda(t, !respaldo, lluviaHora !== null);
     html += tabla(d, t, respaldo);
     html += notas(d, t, respaldo);
     return html;
@@ -458,6 +527,7 @@
     ".pm-linea-pro{fill:none;stroke:#7c3aed;stroke-width:2.5;stroke-dasharray:6 4}" +
     ".pm-punto{fill:#7c3aed;stroke:#fff;stroke-width:2}" +
     ".pm-banda{fill:rgba(139,92,246,.22);stroke:none}" +
+    ".pm-lluvia{fill:#0ea5e9;opacity:.85}" +
     ".pm-umbral{stroke:#dc2626;stroke-width:1.5;stroke-dasharray:5 4}" +
     ".pm-umbral-txt{fill:#dc2626;font-size:12px}" +
     ".pm-origen{stroke:#94a3b8;stroke-width:1;stroke-dasharray:2 3}" +

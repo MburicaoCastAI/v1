@@ -18,13 +18,14 @@ lang: es
     <script src="{{ '/assets/js/pronostico.js' | relative_url }}" defer></script>
         
         <div class="monitoring-grid">
+            <!-- Panel de precipitación de Grafana: comentado el 14-sep. La lluvia ahora está en el recuadro del pronóstico con la cuenta correcta; este panel daba 12 veces más. Para volver a mostrarlo, borrar esta línea y la de cierre.
             <div class="monitoring-item">
                 <h3><i class="fas fa-water"></i> Monitoreo de Nivel de Agua</h3>
                 <img src="https://lmeserver.tail8113d2.ts.net/panels/water-level.png" 
              alt="Water Level" 
              style="width:100%; height:auto; border:1px solid #ddd;">
             </div>
-            
+            -->
             <div class="monitoring-item">
                 <h3><i class="fas fa-cloud-rain"></i> Datos de Precipitación</h3>
                 <img src="https://lmeserver.tail8113d2.ts.net/panels/precipitation.png" 

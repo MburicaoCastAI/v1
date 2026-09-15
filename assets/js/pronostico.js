@@ -40,7 +40,7 @@
 
   // =========================================================== 1. AJUSTES ===
 
-  const VERSION = "1.1";
+  const VERSION = "1.2";
 
   // El JSON trae un campo "version_formato". Si no coincide con este número, el
   // archivo cambió de estructura y esta página no sabe leerlo: se avisa en vez
@@ -63,6 +63,13 @@
   // Si entre dos mediciones pasan más de 15 min, falta un dato: la línea se corta
   // en vez de unir los dos puntos como si hubiera habido medición en el medio.
   const HUECO_MAXIMO_MIN = 15;
+
+  // El modelo trabaja con intervalos de 10 minutos que se nombran por su comienzo:
+  // el "20:50" va de 20:50 a 21:00. En el gráfico cada valor se dibuja en el MEDIO de
+  // su intervalo (20:55), que es donde corresponde un promedio de esos 10 minutos, y
+  // en la tabla se escribe el intervalo entero. Antes se dibujaba en el comienzo y la
+  // página parecía ir atrasada (duda del 14-sep).
+  const INTERVALO_MIN = 10;
 
   // ============================================================ 2. TEXTOS ===
 
@@ -102,6 +109,8 @@
       notaLluvia: "La lluvia es la que mide el pluviómetro de la estación del arroyo, y se muestra " +
         "como referencia: el pronóstico se calcula solo con el nivel medido.",
       aviso: "Producto experimental de investigación (tesis de maestría, FIUNA). No es una alerta oficial.",
+      notaIntervalos: "Cada nivel es el promedio de un intervalo de 10 minutos: el de la tabla " +
+        "indica de qué hora a qué hora.",
       notaRango: "El rango probable contiene el nivel real 9 de cada 10 veces, en promedio a lo " +
         "largo del tiempo; no es una garantía para cada pronóstico.",
       notaUmbral: function (valor, pct, periodo) {
@@ -148,6 +157,8 @@
       notaLluvia: "Rain is measured by the stream station's rain gauge and shown for reference: " +
         "the forecast is computed from the measured level only.",
       aviso: "Experimental research product (master's thesis, FIUNA). Not an official warning.",
+      notaIntervalos: "Each level is the average over a 10-minute interval: the table shows " +
+        "from what time to what time.",
       notaRango: "The likely range contains the actual level 9 times out of 10 on average over " +
         "time; it is not a guarantee for each individual forecast.",
       notaUmbral: function (valor, pct, periodo) {
@@ -230,11 +241,12 @@
     // el navegador lo achicaría entero, letras incluidas: los números de los ejes
     // quedaban de ~5 px, ilegibles (visto en la demo el 14-sep).
     const IZQ = 60, DER = 18, ARR = 22, ABA = 32;
+    const MEDIO = INTERVALO_MIN * 30000;   // medio intervalo, en ms (ver INTERVALO_MIN)
 
     // Franja de lluvia debajo del nivel, con el mismo eje de tiempo. Solo si el JSON
     // la trae: los publicados antes del 14-sep no tienen "lluvia_mm".
     const lluvias = (d.observado || [])
-      .map(function (p) { return { x: instante(p.hora), mm: p.lluvia_mm }; })
+      .map(function (p) { return { x: instante(p.hora) + MEDIO, mm: p.lluvia_mm }; })
       .filter(function (p) { return isFinite(p.x) && typeof p.mm === "number"; });
     const ALTO_LLUVIA = lluvias.length ? 64 : 0, SEPARACION = lluvias.length ? 30 : 0;
 
@@ -243,15 +255,17 @@
     const BASE_NIVEL = H - ABA - ALTO_LLUVIA - SEPARACION;   // borde inferior del gráfico de nivel
 
     const medido = (d.observado || [])
-      .map(function (p) { return { x: instante(p.hora), y: p.nivel }; })
+      .map(function (p) { return { x: instante(p.hora) + MEDIO, y: p.nivel }; })
       .filter(function (p) { return isFinite(p.x) && typeof p.y === "number"; });
     const pronostico = (d.pronostico || [])
-      .map(function (p) { return { x: instante(p.hora), y: p.nivel, lo: p.min_90, hi: p.max_90 }; })
+      .map(function (p) { return { x: instante(p.hora) + MEDIO, y: p.nivel, lo: p.min_90, hi: p.max_90 }; })
       .filter(function (p) { return isFinite(p.x) && typeof p.y === "number"; });
     if (!medido.length && !pronostico.length) return "";
 
     const umbral = d.umbral && typeof d.umbral.valor === "number" ? d.umbral.valor : null;
-    const origen = instante(d.ultimo_dato);
+    // La línea vertical va en el medio del último intervalo medido: ahí termina la
+    // línea azul, y coincide con la lectura más nueva (20:55 para el intervalo 20:50).
+    const origen = instante(d.ultimo_dato) + MEDIO;
     // El pronóstico arranca en el último nivel medido.
     const inicio = medido.length ? medido[medido.length - 1] : null;
     const conBanda = pronostico.length > 0 && pronostico.every(function (p) {
@@ -327,7 +341,7 @@
     if (lluvias.length) {
       const arriba = BASE_NIVEL + SEPARACION, abajo = H - ABA;
       const maximo = Math.max(1, Math.max.apply(null, lluvias.map(function (p) { return p.mm; })));
-      const anchoBarra = Math.max(1.5, (sx(x0 + 600000) - sx(x0)) * 0.8);
+      const anchoBarra = Math.max(1.5, (sx(x0 + INTERVALO_MIN * 60000) - sx(x0)) * 0.8);
       svg += '<text x="' + IZQ + '" y="' + (arriba - 9) + '" class="pm-eje">' + escapar(t.tituloLluvia) + "</text>" +
         '<line x1="' + IZQ + '" x2="' + (W - DER) + '" y1="' + abajo + '" y2="' + abajo + '" class="pm-rejilla"/>' +
         '<text x="' + (IZQ - 8) + '" y="' + arriba + '" class="pm-eje" text-anchor="end" dominant-baseline="hanging">' +
@@ -394,7 +408,9 @@
     const filas = (d.pronostico || []).map(function (p) {
       const rango = (!respaldo && typeof p.min_90 === "number" && typeof p.max_90 === "number")
         ? nivel(p.min_90, t) + " – " + nivel(p.max_90, t) : "—";
-      return "<tr><td>" + hora(instante(p.hora)) + ' <span class="pm-sutil">(+' + escapar(p.minutos) +
+      const desde = instante(p.hora);
+      return "<tr><td>" + hora(desde) + "–" + hora(desde + INTERVALO_MIN * 60000) +
+        ' <span class="pm-sutil">(+' + escapar(p.minutos) +
         " min)</span></td><td>" + nivel(p.nivel, t) + "</td><td>" + rango + "</td><td>" +
         (respaldo ? "—" : probabilidad(p.prob_umbral)) + "</td></tr>";
     }).join("");
@@ -407,6 +423,7 @@
     const u = d.umbral || {};
     const m = /^p(\d+)$/.exec(u.nombre || "");
     let html = '<p class="pm-nota"><strong>' + escapar(t.aviso) + "</strong></p>";
+    html += '<p class="pm-nota">' + escapar(t.notaIntervalos) + "</p>";
     if (!respaldo) html += '<p class="pm-nota">' + escapar(t.notaRango) + "</p>";
     if (typeof u.valor === "number" && m) {
       html += '<p class="pm-nota">' + escapar(t.notaUmbral(nivel(u.valor, t), 100 - Number(m[1]), u.periodo)) + "</p>";
@@ -435,9 +452,13 @@
     const respaldo = d.estado === "fallback_persistence";
 
     const lluviaHora = lluviaUltimaHora(d);
+    // "ultima_lectura" es la hora de la lectura más nueva que usó el modelo (20:55).
+    // Los JSON anteriores al 15-sep no la traen: ahí se muestra "ultimo_dato", el
+    // comienzo del intervalo (20:50), como antes.
+    const ultima = typeof d.ultima_lectura === "string" ? d.ultima_lectura : d.ultimo_dato;
     let html = '<p class="pm-estado">' +
       escapar(t.actualizado(hora(actualizado), t.hace(duracion(edad, t)))) + " · " +
-      escapar(t.ultimoDato(hora(instante(d.ultimo_dato)))) +
+      escapar(t.ultimoDato(hora(instante(ultima)))) +
       (lluviaHora !== null ? " · " + escapar(t.lluviaHora(numero(lluviaHora, 1, t))) : "") + "</p>";
 
     if (viejo) html += '<p class="pm-alerta pm-alerta-viejo">' + escapar(t.viejo(duracion(edad, t))) + "</p>";

@@ -15,7 +15,7 @@ lang: es
     <div class="pronostico-mburicao"
             data-url="https://raw.githubusercontent.com/fedemoranf-alt/mburicao-pronostico/data/forecast.json"
             data-lang="es"></div>
-    <script src="{{ '/assets/js/pronostico.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/pronostico.js' | relative_url }}?v=1.2" defer></script>
         
         <div class="monitoring-grid">
             <!-- Panel de precipitación de Grafana: comentado el 14-sep. La lluvia ahora está en el recuadro del pronóstico con la cuenta correcta; este panel daba 12 veces más. Para volver a mostrarlo, borrar esta línea y la de cierre.

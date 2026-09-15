@@ -15,7 +15,7 @@ lang: en
 <div class="pronostico-mburicao"
      data-url="https://raw.githubusercontent.com/fedemoranf-alt/mburicao-pronostico/data/forecast.json"
      data-lang="en"></div>
-<script src="{{ '/assets/js/pronostico.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/pronostico.js' | relative_url }}?v=1.2" defer></script>
         
         <div class="monitoring-grid">
     <div class="monitoring-item">

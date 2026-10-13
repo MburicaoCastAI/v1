@@ -40,7 +40,7 @@
 
   // =========================================================== 1. AJUSTES ===
 
-  const VERSION = "1.2";
+  const VERSION = "1.3";
 
   // El JSON trae un campo "version_formato". Si no coincide con este número, el
   // archivo cambió de estructura y esta página no sabe leerlo: se avisa en vez
@@ -102,10 +102,13 @@
       leyRango: "Rango probable (90 %)",
       leyUmbral: "Umbral de referencia",
       marcaUltimo: "último dato",
-      leyLluvia: "Lluvia (mm cada 10 min)",
-      tituloLluvia: "Lluvia medida · mm cada 10 min",
+      leyLluvia: "Lluvia detectada",
+      tituloLluvia: "Lluvia detectada en la estación",
       sinLluvia: "sin lluvia en estas horas",
-      lluviaHora: function (mm) { return "lluvia en la última hora: " + mm + " mm"; },
+      lluviaAhora: function (min) { return "llueve ahora · " + min + " de los últimos 60 min"; },
+      lluviaHace: function (duracion) { return "última lluvia hace " + duracion; },
+      lluviaNada: "sin lluvia en las últimas horas",
+      lluviaSinDato: "pluviómetro sin datos",
       notaLluvia: "La lluvia es la que mide el pluviómetro de la estación del arroyo, y se muestra " +
         "como referencia: el pronóstico se calcula solo con el nivel medido.",
       aviso: "Producto experimental de investigación (tesis de maestría, FIUNA). No es una alerta oficial.",
@@ -150,10 +153,13 @@
       leyRango: "Likely range (90%)",
       leyUmbral: "Reference threshold",
       marcaUltimo: "last data",
-      leyLluvia: "Rain (mm per 10 min)",
-      tituloLluvia: "Measured rain · mm per 10 min",
+      leyLluvia: "Rain detected",
+      tituloLluvia: "Rain detected at the station",
       sinLluvia: "no rain in these hours",
-      lluviaHora: function (mm) { return "rain in the last hour: " + mm + " mm"; },
+      lluviaAhora: function (min) { return "raining now · " + min + " of the last 60 min"; },
+      lluviaHace: function (duracion) { return "last rain " + duracion + " ago"; },
+      lluviaNada: "no rain in the last hours",
+      lluviaSinDato: "rain gauge without data",
       notaLluvia: "Rain is measured by the stream station's rain gauge and shown for reference: " +
         "the forecast is computed from the measured level only.",
       aviso: "Experimental research product (master's thesis, FIUNA). Not an official warning.",
@@ -223,15 +229,55 @@
     return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * potencia;
   }
 
-  /** Lluvia acumulada en la hora que termina en el último dato; null si el JSON no la trae. */
-  function lluviaUltimaHora(d) {
+  /** Qué detectó el pluviómetro; null si el JSON no trae el dato de la lluvia.
+   *
+   * El pluviómetro de la estación cuenta detecciones de agua sobre su superficie
+   * y les asigna un valor fijo, así que lo que publica el JSON son los MINUTOS en
+   * los que detectó agua en cada intervalo (`lluvia_min`: 0, 5 o 10), no una
+   * cantidad de lluvia. Un `null` ahí es "no sé": el sensor no respondió, que no
+   * es lo mismo que "no llovió".
+   *
+   * Los JSON de hasta el 12-oct traían `lluvia_mm` en vez de `lluvia_min`: ahí
+   * esto devuelve null y la página no dibuja nada sobre la lluvia.
+   */
+  function estadoLluvia(d) {
+    const puntos = (d.observado || [])
+      .map(function (p) { return { x: instante(p.hora), min: p.lluvia_min }; })
+      .filter(function (p) {
+        return isFinite(p.x) && (typeof p.min === "number" || p.min === null);
+      });
+    if (!puntos.length) return null;
+
     const fin = instante(d.ultimo_dato);
-    const puntos = (d.observado || []).filter(function (p) { return typeof p.lluvia_mm === "number"; });
-    if (!puntos.length || !isFinite(fin)) return null;
-    return puntos.reduce(function (suma, p) {
-      const x = instante(p.hora);
-      return (x > fin - 3600e3 && x <= fin) ? suma + p.lluvia_mm : suma;
-    }, 0);
+    const nuevo = puntos[puntos.length - 1];
+    const mojados = puntos.filter(function (p) { return p.min > 0; });
+    const ultima = mojados.length ? mojados[mojados.length - 1] : null;
+    return {
+      bloques: puntos,
+      // Hay franja si al menos un intervalo trae dato: con todos en null no hay
+      // nada que dibujar, solo que avisar.
+      franja: puntos.some(function (p) { return typeof p.min === "number"; }),
+      sinDato: typeof nuevo.min !== "number",
+      llueve: nuevo.min > 0,
+      // Minutos con agua en la última hora. Es duración, no cantidad.
+      minutosEnLaHora: puntos.reduce(function (suma, p) {
+        return (typeof p.min === "number" && isFinite(fin) &&
+          p.x > fin - 3600e3 && p.x <= fin) ? suma + p.min : suma;
+      }, 0),
+      // Desde el final del último intervalo con agua hasta el final del último
+      // medido: los dos corren 10 minutos, así que la resta de los comienzos da
+      // lo mismo y no hace falta sumarlos.
+      desde: ultima && isFinite(fin) ? Math.round((fin - ultima.x) / 60000) : null
+    };
+  }
+
+  /** La frase que acompaña a la hora, arriba del gráfico. null si no se muestra. */
+  function textoLluvia(l, t) {
+    if (!l) return null;
+    if (l.sinDato) return t.lluviaSinDato;
+    if (l.llueve) return t.lluviaAhora(l.minutosEnLaHora);
+    if (l.desde !== null) return t.lluviaHace(duracion(l.desde, t));
+    return t.lluviaNada;
   }
 
   // =========================================================== 4. GRÁFICO ===
@@ -244,11 +290,11 @@
     const MEDIO = INTERVALO_MIN * 30000;   // medio intervalo, en ms (ver INTERVALO_MIN)
 
     // Franja de lluvia debajo del nivel, con el mismo eje de tiempo. Solo si el JSON
-    // la trae: los publicados antes del 14-sep no tienen "lluvia_mm".
-    const lluvias = (d.observado || [])
-      .map(function (p) { return { x: instante(p.hora) + MEDIO, mm: p.lluvia_mm }; })
-      .filter(function (p) { return isFinite(p.x) && typeof p.mm === "number"; });
-    const ALTO_LLUVIA = lluvias.length ? 64 : 0, SEPARACION = lluvias.length ? 30 : 0;
+    // trae el dato: los publicados antes del 12-oct no tienen "lluvia_min".
+    const lluvia = estadoLluvia(d);
+    const franja = !!(lluvia && lluvia.franja);
+    const ALTO_LLUVIA = franja ? 24 : 0, SEPARACION = franja ? 26 : 0;
+    const ALTO_BLOQUE = 14;
 
     const W = ancho;
     const H = Math.round(Math.min(340, Math.max(220, ancho * 0.4))) + ALTO_LLUVIA + SEPARACION;
@@ -335,34 +381,36 @@
         escapar(t.marcaUltimo) + '</text>';
     }
 
-    // --- lluvia: una barra por intervalo de 10 minutos, en su propia franja -------
-    // Solo como referencia: el modelo no la usa (R9). Escala propia, con un mínimo
-    // de 1 mm para que una llovizna no parezca un diluvio.
-    if (lluvias.length) {
+    // --- lluvia: un bloque en cada intervalo donde el sensor detectó agua --------
+    // TODOS LOS BLOQUES TIENEN LA MISMA ALTURA, a propósito. El pluviómetro de la
+    // estación detecta agua sobre su superficie; el número que entrega no es una
+    // cantidad de lluvia (ADR-010, revisión del 2026-10-09). Barras de distinta
+    // altura, como se dibujaban hasta el 12-oct, le hacían creer a quien mira que
+    // había milímetros medidos. El ancho cubre los minutos detectados del
+    // intervalo (5 o 10), que es duración: eso sí lo sabe el sensor.
+    //
+    // La lluvia es solo referencia: el modelo no la usa (R9).
+    if (franja) {
       const arriba = BASE_NIVEL + SEPARACION, abajo = H - ABA;
-      const maximo = Math.max(1, Math.max.apply(null, lluvias.map(function (p) { return p.mm; })));
-      const anchoBarra = Math.max(1.5, (sx(x0 + INTERVALO_MIN * 60000) - sx(x0)) * 0.8);
+      const porMinuto = (sx(x0 + 60000) - sx(x0));
       svg += '<text x="' + IZQ + '" y="' + (arriba - 9) + '" class="pm-eje">' + escapar(t.tituloLluvia) + "</text>" +
-        '<line x1="' + IZQ + '" x2="' + (W - DER) + '" y1="' + abajo + '" y2="' + abajo + '" class="pm-rejilla"/>' +
-        '<text x="' + (IZQ - 8) + '" y="' + arriba + '" class="pm-eje" text-anchor="end" dominant-baseline="hanging">' +
-        numero(maximo, 1, t) + " mm</text>" +
-        '<text x="' + (IZQ - 8) + '" y="' + abajo + '" class="pm-eje" text-anchor="end">0</text>';
+        '<line x1="' + IZQ + '" x2="' + (W - DER) + '" y1="' + abajo + '" y2="' + abajo + '" class="pm-rejilla"/>';
       let hubo = false;
-      lluvias.forEach(function (p) {
-        if (p.mm <= 0) return;
+      lluvia.bloques.forEach(function (p) {
+        if (!(p.min > 0)) return;
         hubo = true;
-        const alto = Math.max(1, p.mm / maximo * (abajo - arriba));
-        // En los bordes la barra se RECORTA en vez de correrse: corriéndola, la
-        // primera se montaba sobre la segunda (visto en la demo con lluvia, 14-sep).
-        const izq = Math.max(sx(p.x) - anchoBarra / 2, IZQ);
-        const der = Math.min(sx(p.x) + anchoBarra / 2, W - DER);
+        // El bloque arranca al comienzo del intervalo y se recorta en los bordes.
+        // Con 5 minutos no se sabe cuál de las dos mitades fue, y no vale la pena
+        // inventarlo: son ~5 px en un eje de tres horas.
+        const izq = Math.max(sx(p.x), IZQ);
+        const der = Math.min(sx(p.x) + p.min * porMinuto, W - DER);
         if (der - izq < 0.5) return;
-        svg += '<rect class="pm-lluvia" x="' + f1(izq) + '" y="' + f1(abajo - alto) + '" width="' +
-          f1(der - izq) + '" height="' + f1(alto) + '"/>';
+        svg += '<rect class="pm-lluvia" x="' + f1(izq) + '" y="' + f1(abajo - ALTO_BLOQUE) +
+          '" width="' + f1(der - izq) + '" height="' + ALTO_BLOQUE + '"/>';
       });
       if (!hubo) {
         const xm = isFinite(origen) ? (IZQ + sx(origen)) / 2 : (IZQ + W - DER) / 2;
-        svg += '<text x="' + f1(xm) + '" y="' + f1((arriba + abajo) / 2) + '" class="pm-eje" ' +
+        svg += '<text x="' + f1(xm) + '" y="' + f1(abajo - ALTO_BLOQUE / 2) + '" class="pm-eje" ' +
           'text-anchor="middle" dominant-baseline="middle">' + escapar(t.sinLluvia) + "</text>";
       }
     }
@@ -400,7 +448,7 @@
       item('<line x1="1" x2="25" y1="6" y2="6" class="pm-linea-pro"/>', t.leyPronostico) +
       (conBanda ? item('<rect x="1" y="1" width="24" height="10" class="pm-banda"/>', t.leyRango) : "") +
       item('<line x1="1" x2="25" y1="6" y2="6" class="pm-umbral"/>', t.leyUmbral) +
-      (conLluvia ? item('<rect x="8" y="1" width="10" height="10" class="pm-lluvia"/>', t.leyLluvia) : "") +
+      (conLluvia ? item('<rect x="3" y="2" width="20" height="8" rx="2" class="pm-lluvia"/>', t.leyLluvia) : "") +
       "</ul>";
   }
 
@@ -428,7 +476,8 @@
     if (typeof u.valor === "number" && m) {
       html += '<p class="pm-nota">' + escapar(t.notaUmbral(nivel(u.valor, t), 100 - Number(m[1]), u.periodo)) + "</p>";
     }
-    if (lluviaUltimaHora(d) !== null) html += '<p class="pm-nota">' + escapar(t.notaLluvia) + "</p>";
+    const lluvia = estadoLluvia(d);
+    if (lluvia && lluvia.franja) html += '<p class="pm-nota">' + escapar(t.notaLluvia) + "</p>";
     return html;
   }
 
@@ -451,7 +500,8 @@
     const viejo = !isFinite(edad) || edad > DESACTUALIZADO_DESDE_MIN;
     const respaldo = d.estado === "fallback_persistence";
 
-    const lluviaHora = lluviaUltimaHora(d);
+    const lluvia = estadoLluvia(d);
+    const chipLluvia = textoLluvia(lluvia, t);
     // "ultima_lectura" es la hora de la lectura más nueva que usó el modelo (20:55).
     // Los JSON anteriores al 15-sep no la traen: ahí se muestra "ultimo_dato", el
     // comienzo del intervalo (20:50), como antes.
@@ -459,14 +509,16 @@
     let html = '<p class="pm-estado">' +
       escapar(t.actualizado(hora(actualizado), t.hace(duracion(edad, t)))) + " · " +
       escapar(t.ultimoDato(hora(instante(ultima)))) +
-      (lluviaHora !== null ? " · " + escapar(t.lluviaHora(numero(lluviaHora, 1, t))) : "") + "</p>";
+      (chipLluvia ? ' · <span class="pm-chip' + (lluvia.llueve ? " pm-chip-lluvia" : "") + '">' +
+        (lluvia.llueve ? '<i class="fas fa-cloud-rain" aria-hidden="true"></i> ' : "") +
+        escapar(chipLluvia) + "</span>" : "") + "</p>";
 
     if (viejo) html += '<p class="pm-alerta pm-alerta-viejo">' + escapar(t.viejo(duracion(edad, t))) + "</p>";
     if (respaldo) html += '<p class="pm-alerta">' + escapar(t.respaldo) + "</p>";
     else if (d.estado !== "ok") html += '<p class="pm-alerta">' + escapar(t.estadoRaro(d.estado)) + "</p>";
 
     html += '<div class="pm-grafico' + (viejo ? " pm-apagado" : "") + '">' + grafico(d, t, ancho) + "</div>";
-    html += leyenda(t, !respaldo, lluviaHora !== null);
+    html += leyenda(t, !respaldo, !!(lluvia && lluvia.franja));
     html += tabla(d, t, respaldo);
     html += notas(d, t, respaldo);
     return html;
@@ -560,7 +612,9 @@
     ".pm-tabla th,.pm-tabla td{padding:.5rem .6rem;text-align:left;border-bottom:1px solid #e2e8f0;white-space:nowrap}" +
     ".pm-tabla th{color:#475569;font-weight:600;background:#f8fafc}" +
     ".pm-sutil{color:#94a3b8}" +
-    ".pm-nota{margin:.6rem 0 0;font-size:.8rem;color:#64748b;line-height:1.5}";
+    ".pm-nota{margin:.6rem 0 0;font-size:.8rem;color:#64748b;line-height:1.5}" +
+    ".pm-chip{display:inline-block;padding:1px 8px;border-radius:999px;background:#f1f5f9;color:#475569;white-space:nowrap}" +
+    ".pm-chip-lluvia{background:#e0f2fe;color:#075985}";
 
   function iniciar() {
     if (!document.getElementById("pm-estilos")) {

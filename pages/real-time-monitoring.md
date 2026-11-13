@@ -15,23 +15,11 @@ lang: en
 <div class="pronostico-mburicao"
      data-url="https://raw.githubusercontent.com/fedemoranf-alt/mburicao-pronostico/data/forecast.json"
      data-lang="en"></div>
-<script src="{{ '/assets/js/pronostico.js' | relative_url }}?v=1.3" defer></script>
+<script src="{{ '/assets/js/pronostico.js' | relative_url }}?v=1.4" defer></script>
         
-        <div class="monitoring-grid">
-    <div class="monitoring-item">
-        <h3><i class="fas fa-water"></i> Water Level Monitoring</h3>
-        <img src="https://lmeserver.tail8113d2.ts.net/panels/water-level.png" 
-             alt="Water Level" 
-             style="width:100%; height:auto; border:1px solid #ddd;">
-    </div>
-    
-    <div class="monitoring-item">
-        <h3><i class="fas fa-cloud-rain"></i> Precipitation Data</h3>
-        <img src="https://lmeserver.tail8113d2.ts.net/panels/precipitation.png" 
-             alt="Precipitation" 
-             style="width:100%; height:auto; border:1px solid #ddd;">
-    </div>
-</div>
+       <div class="eventos-mburicao"
+     data-url="https://raw.githubusercontent.com/fedemoranf-alt/mburicao-pronostico/eventos/eventos.json"
+     data-lang="en"></div>
         
         <div class="info-box">
             <h3>About This Monitoring System</h3>

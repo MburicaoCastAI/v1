@@ -15,24 +15,11 @@ lang: es
     <div class="pronostico-mburicao"
             data-url="https://raw.githubusercontent.com/fedemoranf-alt/mburicao-pronostico/data/forecast.json"
             data-lang="es"></div>
-    <script src="{{ '/assets/js/pronostico.js' | relative_url }}?v=1.3" defer></script>
+    <script src="{{ '/assets/js/pronostico.js' | relative_url }}?v=1.4" defer></script>
         
-        <div class="monitoring-grid">
-            <!-- Panel de precipitación de Grafana: comentado el 14-sep. La lluvia ahora está en el recuadro del pronóstico con la cuenta correcta; este panel daba 12 veces más. Para volver a mostrarlo, borrar esta línea y la de cierre.
-            <div class="monitoring-item">
-                <h3><i class="fas fa-water"></i> Monitoreo de Nivel de Agua</h3>
-                <img src="https://lmeserver.tail8113d2.ts.net/panels/water-level.png" 
-             alt="Water Level" 
-             style="width:100%; height:auto; border:1px solid #ddd;">
-            </div>
-            -->
-            <div class="monitoring-item">
-                <h3><i class="fas fa-cloud-rain"></i> Datos de Precipitación</h3>
-                <img src="https://lmeserver.tail8113d2.ts.net/panels/precipitation.png" 
-             alt="Precipitation" 
-             style="width:100%; height:auto; border:1px solid #ddd;">
-            </div>
-        </div>
+        <div class="eventos-mburicao"
+     data-url="https://raw.githubusercontent.com/fedemoranf-alt/mburicao-pronostico/eventos/eventos.json"
+     data-lang="es"></div>
         
         <div class="info-box">
             <h3>Acerca de Este Sistema de Monitoreo</h3>

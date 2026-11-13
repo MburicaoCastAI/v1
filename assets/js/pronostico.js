@@ -40,7 +40,7 @@
 
   // =========================================================== 1. AJUSTES ===
 
-  const VERSION = "1.3";
+  const VERSION = "1.4";
 
   // El JSON trae un campo "version_formato". Si no coincide con este número, el
   // archivo cambió de estructura y esta página no sabe leerlo: se avisa en vez
@@ -123,7 +123,60 @@
       },
       aria: "Gráfico del nivel del arroyo: medido en las últimas horas y pronosticado para " +
         "los próximos 30 minutos. Los mismos valores están en la tabla de abajo.",
-      coma: ","
+      coma: ",",
+      meses: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
+
+      // --- panel de eventos (eventos.json) ---
+      evTitulo: "Cómo se comportó el sistema en crecidas reales",
+      evCargando: "Cargando los eventos…",
+      evVacio: "Todavía no hay crecidas registradas para mostrar.",
+      evElegir: "Elegí una crecida",
+      evSubida: function (m) { return "subió " + m; },
+      evPico: function (m) { return "pico " + m; },
+      evCruzo: "cruzó el umbral",
+      evNoCruzo: "no llegó al umbral",
+      evLluvia: function (min) { return min + " min con lluvia detectada"; },
+      evSinLluvia: "sin lluvia detectada en la estación",
+      evLeyPronostico: "Lo que el sistema dijo 30 min antes",
+      evErrorMedio: "Error medio",
+      evErrorPico: "Error en el pico",
+      evPersistencia: "Error sin modelo",
+      evCobertura: "Dentro del rango",
+      evAviso: "Aviso antes del pico",
+      evSinAviso: "no avisó",
+      evNoAplica: "—",
+      evCentimetros: function (v) { return v + " cm"; },
+      evMinutosAntes: function (v) { return v + " min antes"; },
+      evOrigenOperacion: "Estos son los pronósticos tal como el sistema los publicó en ese " +
+        "momento: están guardados en la base desde entonces y nadie los recalculó.",
+      evOrigenReconstruccion: "Cuando ocurrió esta crecida el servicio todavía no estaba en " +
+        "marcha. Los pronósticos se reconstruyeron después con el mismo código que corre en " +
+        "producción, dándole al modelo en cada instante solo los datos que existían hasta ahí.",
+      evNotaPersistencia: "«Error sin modelo» es el error de suponer que dentro de 30 minutos el " +
+        "nivel va a ser el de ahora. Es la referencia contra la que se mide cualquier pronóstico " +
+        "a corto plazo: el modelo sirve si le gana.",
+      evNotaPico: "En crecidas de varios metros en menos de una hora el modelo llega tarde al " +
+        "pico. El pluviómetro está dentro del cauce y no anticipa la lluvia que la provoca: el " +
+        "sistema la ve recién cuando el agua ya está subiendo.",
+      evNotaBanda: "Donde la banda toca el borde del gráfico es porque sigue más allá: en el pico " +
+        "de una crecida el rango probable se abre mucho, y el gráfico está recortado para que la " +
+        "crecida siga siendo legible.",
+      evNotaAviso: function (cruce, p) {
+        return "El umbral de referencia está apenas unos 10 cm por encima del nivel habitual, así " +
+          "que en una crecida se cruza en los primeros minutos de la subida" +
+          (typeof cruce === "number"
+            ? " (acá el sistema ya había avisado " + cruce + " min antes de ese cruce)"
+            : "") + ", y el agua sigue subiendo media hora o más. Por eso el aviso se cuenta " +
+          "hasta el pico, que es cuando el agua está en su peor momento" +
+          (typeof p === "number" ? ". La probabilidad más alta que dio durante esta crecida " +
+            "fue " + p + " %" : "") + ".";
+      },
+      evNotaVentana: function (n) {
+        return "Las cuentas son sobre los " + n + " intervalos de 10 minutos de esta ventana.";
+      },
+      evAria: "Gráfico de una crecida: el nivel que se midió y lo que el sistema había " +
+        "pronosticado 30 minutos antes para cada momento.",
+      evErrorCarga: "No se pudieron cargar los eventos en este momento."
     },
     en: {
       titulo: "Water level forecast · next 30 minutes",
@@ -174,7 +227,60 @@
       },
       aria: "Chart of the stream level: measured over the last hours and forecast for the " +
         "next 30 minutes. The same values are in the table below.",
-      coma: "."
+      coma: ".",
+      meses: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+
+      // --- events panel (eventos.json) ---
+      evTitulo: "How the system performed during real flood events",
+      evCargando: "Loading the events…",
+      evVacio: "No flood events recorded yet.",
+      evElegir: "Pick an event",
+      evSubida: function (m) { return "rose " + m; },
+      evPico: function (m) { return "peak " + m; },
+      evCruzo: "crossed the threshold",
+      evNoCruzo: "stayed below the threshold",
+      evLluvia: function (min) { return min + " min with rain detected"; },
+      evSinLluvia: "no rain detected at the station",
+      evLeyPronostico: "What the system said 30 min earlier",
+      evErrorMedio: "Mean error",
+      evErrorPico: "Error at the peak",
+      evPersistencia: "Error with no model",
+      evCobertura: "Inside the range",
+      evAviso: "Warning before the peak",
+      evSinAviso: "no warning",
+      evNotaAviso: function (cruce, p) {
+        return "The reference threshold is only about 10 cm above the usual level, so in a " +
+          "flood it is crossed within the first minutes of the rise" +
+          (typeof cruce === "number"
+            ? " (here the system had already warned " + cruce + " min before that)"
+            : "") + ", while the water keeps rising for another half hour or more. That is " +
+          "why the warning is counted up to the peak" +
+          (typeof p === "number" ? ". The highest probability it gave during this event was " +
+            p + " %" : "") + ".";
+      },
+      evNoAplica: "—",
+      evCentimetros: function (v) { return v + " cm"; },
+      evMinutosAntes: function (v) { return v + " min earlier"; },
+      evOrigenOperacion: "These are the forecasts exactly as the system published them at the " +
+        "time: they have been stored in the database ever since and nobody recomputed them.",
+      evOrigenReconstruccion: "The service was not yet running when this event happened. The " +
+        "forecasts were reconstructed afterwards with the same code that runs in production, " +
+        "giving the model at each step only the data that existed up to that point.",
+      evNotaPersistencia: "“Error with no model” is the error of assuming that in 30 minutes the " +
+        "level will be the current one. It is the baseline any short-term forecast is measured " +
+        "against: the model is worth having if it beats it.",
+      evNotaPico: "In floods of several metres in under an hour the model reaches the peak late. " +
+        "The rain gauge sits inside the channel and does not anticipate the rain that causes the " +
+        "flood: the system only sees it once the water is already rising.",
+      evNotaBanda: "Where the range touches the edge of the chart it continues beyond it: at the " +
+        "peak of a flood the likely range widens a great deal, and the chart is clipped so that " +
+        "the flood itself stays readable.",
+      evNotaVentana: function (n) {
+        return "The figures are computed over the " + n + " ten-minute intervals of this window.";
+      },
+      evAria: "Chart of one flood event: the level that was measured and what the system had " +
+        "forecast 30 minutes earlier for each moment.",
+      evErrorCarga: "The events could not be loaded right now."
     }
   };
 
@@ -579,6 +685,366 @@
     });
   }
 
+  // =========================================== 5.bis PANEL DE EVENTOS ===
+  //
+  //  QUÉ MUESTRA
+  //    Las crecidas reales de la estación y, encima de cada una, lo que el
+  //    sistema había pronosticado 30 minutos antes para cada momento. No es el
+  //    pronóstico de ahora: es el registro de cómo le fue.
+  //
+  //  POR QUÉ ES UN SEGUNDO ARCHIVO Y NO MÁS CAMPOS EN forecast.json
+  //    forecast.json lo reemplaza el job cada 10 minutos y se pide cada 5. Los
+  //    eventos son datos históricos que cambian cuando hay una crecida nueva:
+  //    meterlos ahí sería mandar decenas de kilobytes cada vez para nada.
+  //    Viven en eventos.json, en su propia rama (ver scripts/eventos_web.py).
+  //
+  //  SE PONE EN LA PÁGINA IGUAL QUE EL OTRO
+  //    <div class="eventos-mburicao" data-url="…/eventos.json" data-lang="es"></div>
+
+  const FORMATO_EVENTOS_QUE_SABE_LEER = 1;
+
+  //: Los clipPath de los SVG necesitan un id único en toda la página: si dos
+  //: paneles usaran el mismo, el navegador aplica el primero a los dos.
+  let clipSeq = 0;
+
+  /** 2,46 m. Para las crecidas, donde los milímetros del nivel no aportan nada. */
+  function nivelCorto(v, t) {
+    return typeof v === "number" ? numero(v, 2, t) + " m" : "—";
+  }
+
+  /** Milisegundos -> "28 ene 2026", en hora de Paraguay. */
+  function fecha(ms, t) {
+    if (!isFinite(ms)) return "—";
+    const iso = new Date(ms + ZONA_PARAGUAY_MIN * 60000).toISOString();
+    const mes = t.meses[Number(iso.slice(5, 7)) - 1] || "";
+    return Number(iso.slice(8, 10)) + " " + mes + " " + iso.slice(0, 4);
+  }
+
+  function etiquetaEvento(ev, t) {
+    const x = instante(ev.pico && ev.pico.hora);
+    return fecha(x, t) + " · " + hora(x);
+  }
+
+  /** Une puntos cortando donde falta un dato, igual que la línea del nivel. */
+  function camino(puntos, sx, sy, f1) {
+    let d = "", anterior = null;
+    puntos.forEach(function (p) {
+      const salto = anterior !== null && (p.x - anterior) > HUECO_MAXIMO_MIN * 60000 + INTERVALO_MIN * 60000;
+      d += (anterior === null || salto ? "M" : "L") + f1(sx(p.x)) + " " + f1(sy(p.y));
+      anterior = p.x;
+    });
+    return d;
+  }
+
+  function graficoEvento(ev, d, t, ancho) {
+    const IZQ = 60, DER = 18, ARR = 22, ABA = 32;
+    const MEDIO = INTERVALO_MIN * 30000;
+
+    const bloques = (ev.observado || [])
+      .map(function (p) { return { x: instante(p.hora), min: p.lluvia_min }; })
+      .filter(function (p) { return isFinite(p.x); });
+    const franja = bloques.some(function (p) { return typeof p.min === "number"; });
+    const ALTO_LLUVIA = franja ? 24 : 0, SEPARACION = franja ? 26 : 0, ALTO_BLOQUE = 14;
+
+    const W = ancho;
+    const H = Math.round(Math.min(340, Math.max(220, ancho * 0.4))) + ALTO_LLUVIA + SEPARACION;
+    const BASE_NIVEL = H - ABA - ALTO_LLUVIA - SEPARACION;
+
+    const medido = (ev.observado || [])
+      .map(function (p) { return { x: instante(p.hora) + MEDIO, y: p.nivel }; })
+      .filter(function (p) { return isFinite(p.x) && typeof p.y === "number"; });
+    const pron = (ev.pronostico_30 || [])
+      .map(function (p) {
+        return { x: instante(p.hora) + MEDIO, y: p.nivel, lo: p.min_90, hi: p.max_90 };
+      })
+      .filter(function (p) { return isFinite(p.x) && typeof p.y === "number"; });
+    if (!medido.length && !pron.length) return { svg: "", recortada: false };
+
+    const umbral = d.umbral && typeof d.umbral.valor === "number" ? d.umbral.valor : null;
+    const conBanda = pron.filter(function (p) {
+      return typeof p.lo === "number" && typeof p.hi === "number";
+    });
+
+    // --- ejes -----------------------------------------------------------------
+    // El eje de tiempo lo fija el nivel MEDIDO: es la ventana del evento. Los
+    // pronósticos arrancan antes (el de las 16:50 se emitió a las 16:20) y se
+    // recortan solos al dibujarse.
+    const xs = (medido.length ? medido : pron).map(function (p) { return p.x; });
+    let x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
+
+    const ys = medido.concat(pron).map(function (p) { return p.y; });
+    if (umbral !== null) ys.push(umbral);
+    let y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+
+    // En el pico de una crecida la banda se abre muchísimo: el modelo sabe que no
+    // sabe. Si el eje tuviera que contenerla entera, los 3 metros de crecida
+    // quedarían aplastados contra el piso del gráfico y no se vería nada. Se la
+    // deja estirar el eje hasta un 40 % más y lo que sobra se RECORTA: la banda
+    // toca el borde, que es la señal visual de que sigue más allá, y abajo se
+    // aclara por escrito.
+    const holgura = 0.4 * Math.max(y1 - y0, 0.05);
+    conBanda.forEach(function (p) {
+      ys.push(Math.max(p.lo, y0 - holgura), Math.min(p.hi, y1 + holgura));
+    });
+    y0 = Math.min.apply(null, ys); y1 = Math.max.apply(null, ys);
+    const margen = Math.max(0.01, (y1 - y0) * 0.12);
+    y0 -= margen; y1 += margen;
+    const recortada = conBanda.some(function (p) { return p.hi > y1 || p.lo < y0; });
+
+    const sx = function (x) { return IZQ + (x - x0) / (x1 - x0) * (W - IZQ - DER); };
+    const sy = function (y) { return ARR + (y1 - y) / (y1 - y0) * (BASE_NIVEL - ARR); };
+    const f1 = function (v) { return v.toFixed(1); };
+    const dentro = function (p) { return p.x >= x0 && p.x <= x1; };
+
+    let svg = "";
+
+    const paso = pasoRedondo((y1 - y0) / 4);
+    const decimales = paso < 0.01 ? 3 : paso < 0.1 ? 2 : 1;
+    for (let k = Math.ceil(y0 / paso); k <= Math.floor(y1 / paso); k++) {
+      const yy = f1(sy(k * paso));
+      svg += '<line x1="' + IZQ + '" x2="' + (W - DER) + '" y1="' + yy + '" y2="' + yy + '" class="pm-rejilla"/>' +
+        '<text x="' + (IZQ - 8) + '" y="' + yy + '" class="pm-eje" text-anchor="end" dominant-baseline="middle">' +
+        numero(k * paso, decimales, t) + ' m</text>';
+    }
+
+    const cada = ((x1 - x0) > 4 * 3600e3 || W < 480) ? 3600e3 : 1800e3;
+    for (let k = Math.ceil(x0 / cada); k * cada <= x1; k++) {
+      const xx = f1(sx(k * cada));
+      svg += '<line x1="' + xx + '" x2="' + xx + '" y1="' + (H - ABA) + '" y2="' + (H - ABA + 5) + '" class="pm-rejilla"/>' +
+        '<text x="' + xx + '" y="' + (H - 8) + '" class="pm-eje" text-anchor="middle">' + hora(k * cada) + '</text>';
+    }
+
+    // --- rango probable del pronóstico, a lo largo de todo el evento -----------
+    if (conBanda.length > 1) {
+      const visible = conBanda.filter(dentro);
+      if (visible.length > 1) {
+        const arriba = visible.map(function (p) { return [sx(p.x), sy(p.hi)]; });
+        const abajo = visible.map(function (p) { return [sx(p.x), sy(p.lo)]; }).reverse();
+        const id = "pm-ev-clip-" + (clipSeq++);
+        svg += '<clipPath id="' + id + '"><rect x="' + IZQ + '" y="' + ARR +
+          '" width="' + (W - IZQ - DER) + '" height="' + (BASE_NIVEL - ARR) + '"/></clipPath>' +
+          '<g clip-path="url(#' + id + ')"><polygon class="pm-banda" points="' +
+          arriba.concat(abajo).map(function (q) { return f1(q[0]) + "," + f1(q[1]); }).join(" ") +
+          '"/></g>';
+      }
+    }
+
+    // El umbral va sin rótulo adentro del gráfico: en una crecida la curva pasa
+    // justo por ahí y el texto quedaba encima. El valor está en la leyenda.
+    if (umbral !== null) {
+      const yu = f1(sy(umbral));
+      svg += '<line x1="' + IZQ + '" x2="' + (W - DER) + '" y1="' + yu + '" y2="' + yu + '" class="pm-umbral"/>';
+    }
+
+    // --- lluvia detectada: mismos bloques de altura fija que el otro gráfico ---
+    if (franja) {
+      const arriba = BASE_NIVEL + SEPARACION, abajo = H - ABA;
+      const porMinuto = (sx(x0 + 60000) - sx(x0));
+      svg += '<text x="' + IZQ + '" y="' + (arriba - 9) + '" class="pm-eje">' + escapar(t.tituloLluvia) + "</text>" +
+        '<line x1="' + IZQ + '" x2="' + (W - DER) + '" y1="' + abajo + '" y2="' + abajo + '" class="pm-rejilla"/>';
+      let hubo = false;
+      bloques.forEach(function (p) {
+        if (!(p.min > 0) || p.x > x1) return;
+        hubo = true;
+        const izq = Math.max(sx(p.x), IZQ);
+        const der = Math.min(sx(p.x) + p.min * porMinuto, W - DER);
+        if (der - izq < 0.5) return;
+        svg += '<rect class="pm-lluvia" x="' + f1(izq) + '" y="' + f1(abajo - ALTO_BLOQUE) +
+          '" width="' + f1(der - izq) + '" height="' + ALTO_BLOQUE + '"/>';
+      });
+      if (!hubo) {
+        svg += '<text x="' + f1((IZQ + W - DER) / 2) + '" y="' + f1(abajo - ALTO_BLOQUE / 2) +
+          '" class="pm-eje" text-anchor="middle" dominant-baseline="middle">' +
+          escapar(t.sinLluvia) + "</text>";
+      }
+    }
+
+    // --- las dos líneas: lo pronosticado primero, lo medido encima -------------
+    const visiblePron = pron.filter(dentro);
+    if (visiblePron.length) {
+      svg += '<path class="pm-linea-pro" d="' + camino(visiblePron, sx, sy, f1) + '"/>';
+    }
+    if (medido.length) {
+      svg += '<path class="pm-medido" d="' + camino(medido, sx, sy, f1) + '"/>';
+    }
+
+    // El pico, que es el instante que importa de una crecida.
+    const pico = { x: instante(ev.pico && ev.pico.hora) + MEDIO, y: ev.pico && ev.pico.nivel };
+    if (isFinite(pico.x) && typeof pico.y === "number" && dentro(pico)) {
+      svg += '<circle class="pm-punto-pico" r="4.5" cx="' + f1(sx(pico.x)) + '" cy="' + f1(sy(pico.y)) + '"/>';
+    }
+
+    return {
+      svg: '<svg class="pm-svg" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' +
+        escapar(t.evAria) + '">' + svg + "</svg>",
+      recortada: recortada
+    };
+  }
+
+  /** Los cuatro números del veredicto, en recuadros. */
+  function metricas(ev, t) {
+    const v = ev.veredicto || {};
+    const caja = function (titulo, valor, destacado) {
+      return '<div class="pm-ev-metrica' + (destacado ? " pm-ev-destacada" : "") + '">' +
+        '<span class="pm-ev-metrica-val">' + escapar(valor) + "</span>" +
+        '<span class="pm-ev-metrica-tit">' + escapar(titulo) + "</span></div>";
+    };
+    const cm = function (x) {
+      return typeof x === "number" ? t.evCentimetros(numero(x, 1, t)) : t.evNoAplica;
+    };
+
+    let html = '<div class="pm-ev-metricas">';
+    html += caja(t.evErrorMedio, cm(v.error_medio_cm), true);
+    html += caja(t.evPersistencia, cm(v.error_medio_persistencia_cm));
+    html += caja(t.evCobertura, typeof v.cobertura_90 === "number"
+      ? Math.round(v.cobertura_90 * 100) + " %" : t.evNoAplica);
+    if (ev.cruzo_umbral) {
+      html += caja(t.evAviso, typeof v.aviso_pico_min === "number"
+        ? t.evMinutosAntes(v.aviso_pico_min) : t.evSinAviso,
+        typeof v.aviso_pico_min === "number");
+    } else if (typeof v.error_pico_cm === "number") {
+      html += caja(t.evErrorPico, cm(v.error_pico_cm));
+    }
+    return html + "</div>";
+  }
+
+  function contenidoEventos(d, t, ancho, elegido) {
+    if (!d) return '<p class="pm-error">' + escapar(t.evErrorCarga) + "</p>";
+    if (d.version_formato !== FORMATO_EVENTOS_QUE_SABE_LEER) {
+      return '<p class="pm-error">' + escapar(t.errorFormato(d.version_formato)) + "</p>";
+    }
+    const eventos = d.eventos || [];
+    if (!eventos.length) return '<p class="pm-estado">' + escapar(t.evVacio) + "</p>";
+
+    const ev = eventos[elegido] || eventos[0];
+    const v = ev.veredicto || {};
+
+    // --- selector -------------------------------------------------------------
+    let html = '<p class="pm-estado">' + escapar(t.evElegir) + "</p>";
+    html += '<div class="pm-ev-selector" role="tablist">';
+    eventos.forEach(function (e, i) {
+      html += '<button type="button" class="pm-ev-boton' + (e === ev ? " pm-ev-activo" : "") +
+        '" data-indice="' + i + '" role="tab" aria-selected="' + (e === ev) + '">' +
+        escapar(etiquetaEvento(e, t)) + "</button>";
+    });
+    html += "</div>";
+
+    // --- resumen del evento ---------------------------------------------------
+    html += '<p class="pm-ev-resumen">' +
+      '<span class="pm-chip">' + escapar(t.evSubida(nivelCorto(ev.subida_m, t))) + "</span>" +
+      '<span class="pm-chip">' + escapar(t.evPico(nivelCorto(ev.pico && ev.pico.nivel, t))) + "</span>" +
+      '<span class="pm-chip' + (ev.cruzo_umbral ? " pm-chip-umbral" : "") + '">' +
+      escapar(ev.cruzo_umbral ? t.evCruzo : t.evNoCruzo) + "</span>" +
+      '<span class="pm-chip' + (ev.lluvia_min_total > 0 ? " pm-chip-lluvia" : "") + '">' +
+      (ev.lluvia_min_total > 0
+        ? '<i class="fas fa-cloud-rain" aria-hidden="true"></i> ' + escapar(t.evLluvia(ev.lluvia_min_total))
+        : escapar(t.evSinLluvia)) + "</span></p>";
+
+    const dibujo = graficoEvento(ev, d, t, ancho);
+    html += '<div class="pm-grafico">' + dibujo.svg + "</div>";
+
+    const valorUmbral = d.umbral && typeof d.umbral.valor === "number" ? d.umbral.valor : null;
+    html += '<ul class="pm-leyenda">' +
+      '<li><svg width="26" height="12" aria-hidden="true"><line x1="1" x2="25" y1="6" y2="6" class="pm-medido"/></svg>' +
+      escapar(t.leyMedido) + "</li>" +
+      '<li><svg width="26" height="12" aria-hidden="true"><line x1="1" x2="25" y1="6" y2="6" class="pm-linea-pro"/></svg>' +
+      escapar(t.evLeyPronostico) + "</li>" +
+      '<li><svg width="26" height="12" aria-hidden="true"><rect x="1" y="1" width="24" height="10" class="pm-banda"/></svg>' +
+      escapar(t.leyRango) + "</li>" +
+      '<li><svg width="26" height="12" aria-hidden="true"><line x1="1" x2="25" y1="6" y2="6" class="pm-umbral"/></svg>' +
+      escapar(t.leyUmbral + (valorUmbral !== null ? " · " + nivel(valorUmbral, t) : "")) + "</li>" +
+      (ev.lluvia_min_total > 0
+        ? '<li><svg width="26" height="12" aria-hidden="true"><rect x="3" y="2" width="20" height="8" class="pm-lluvia"/></svg>' +
+        escapar(t.leyLluvia) + "</li>" : "") +
+      "</ul>";
+
+    html += metricas(ev, t);
+
+    // --- notas ----------------------------------------------------------------
+    html += '<p class="pm-nota"><strong>' + escapar(t.aviso) + "</strong></p>";
+    html += '<p class="pm-nota">' + escapar(
+      ev.origen === "operacion" ? t.evOrigenOperacion : t.evOrigenReconstruccion) + "</p>";
+    html += '<p class="pm-nota">' + escapar(t.evNotaPersistencia) + "</p>";
+    if (ev.cruzo_umbral) {
+      html += '<p class="pm-nota">' + escapar(t.evNotaAviso(
+        v.aviso_min,
+        typeof v.p_maxima === "number" ? Math.round(v.p_maxima * 100) : null)) + "</p>";
+    }
+    if (dibujo.recortada) html += '<p class="pm-nota">' + escapar(t.evNotaBanda) + "</p>";
+    if (ev.subida_m >= 1) html += '<p class="pm-nota">' + escapar(t.evNotaPico) + "</p>";
+    if (typeof v.n === "number" && v.n > 0) {
+      html += '<p class="pm-nota">' + escapar(t.evNotaVentana(v.n)) + "</p>";
+    }
+    return html;
+  }
+
+  function montarEventos(caja) {
+    const t = TEXTOS[caja.getAttribute("data-lang") === "en" ? "en" : "es"];
+    const url = caja.getAttribute("data-url");
+    const estado = { datos: null, elegido: 0 };
+
+    function anchoDisponible() {
+      return Math.max(300, Math.min(960, Math.round((caja.clientWidth || 760) - 40)));
+    }
+
+    function pintar(cuerpo) {
+      caja.innerHTML = '<div class="pm-tarjeta"><h3 class="pm-titulo">' +
+        '<i class="fas fa-clock-rotate-left" aria-hidden="true"></i> ' +
+        escapar(t.evTitulo) + '</h3><div class="pm-cuerpo">' + cuerpo + "</div></div>";
+      const botones = caja.querySelectorAll(".pm-ev-boton");
+      for (let i = 0; i < botones.length; i++) {
+        botones[i].addEventListener("click", function () {
+          estado.elegido = Number(this.getAttribute("data-indice")) || 0;
+          const ev = (estado.datos.eventos || [])[estado.elegido];
+          // La dirección queda apuntando al evento elegido: así una diapositiva
+          // puede enlazar directo a uno. replaceState y no el hash a secas para
+          // que el navegador no salte de posición al cambiar de evento.
+          if (ev && ev.id && window.history && window.history.replaceState) {
+            window.history.replaceState(null, "", "#evento=" + encodeURIComponent(ev.id));
+          }
+          redibujar();
+        });
+      }
+    }
+
+    function redibujar() {
+      pintar(contenidoEventos(estado.datos, t, anchoDisponible(), estado.elegido));
+    }
+
+    /** #evento=2026-01-28T1650 en la dirección -> ese evento, si existe. */
+    function elegidoPorDireccion(eventos) {
+      const m = /[#&]evento=([^&]+)/.exec(window.location.hash || "");
+      if (!m) return 0;
+      const id = decodeURIComponent(m[1]);
+      for (let i = 0; i < eventos.length; i++) if (eventos[i].id === id) return i;
+      return 0;
+    }
+
+    pintar('<p class="pm-estado">' + escapar(t.evCargando) + "</p>");
+    if (!url) {
+      pintar('<p class="pm-error">' + escapar(t.evErrorCarga) + " (data-url)</p>");
+      return;
+    }
+
+    fetch(url, { cache: "no-store" })
+      .then(function (r) {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.json();
+      })
+      .then(function (d) {
+        estado.datos = d;
+        estado.elegido = elegidoPorDireccion(d.eventos || []);
+      })
+      .catch(function (e) { console.warn("[eventos-mburicao]", url, e); })
+      .then(redibujar);
+
+    let espera = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(espera);
+      espera = setTimeout(function () { if (estado.datos) redibujar(); }, 200);
+    });
+  }
+
   // ============================================================ 6. ESTILOS ===
   // Todas las clases empiezan con "pm-" para no chocar con los estilos de la
   // página. Los colores son los de la página del laboratorio (#3b82f6, #8b5cf6).
@@ -614,7 +1080,22 @@
     ".pm-sutil{color:#94a3b8}" +
     ".pm-nota{margin:.6rem 0 0;font-size:.8rem;color:#64748b;line-height:1.5}" +
     ".pm-chip{display:inline-block;padding:1px 8px;border-radius:999px;background:#f1f5f9;color:#475569;white-space:nowrap}" +
-    ".pm-chip-lluvia{background:#e0f2fe;color:#075985}";
+    ".pm-chip-lluvia{background:#e0f2fe;color:#075985}" +
+    // --- panel de eventos ---
+    ".eventos-mburicao{margin:2rem 0}" +
+    ".pm-ev-selector{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1rem}" +
+    ".pm-ev-boton{padding:.45rem .85rem;border:1px solid #cbd5e1;border-radius:999px;background:#fff;" +
+    "color:#334155;font:inherit;font-size:.88rem;cursor:pointer;line-height:1.2}" +
+    ".pm-ev-boton:hover{border-color:#3b82f6;color:#1d4ed8}" +
+    ".pm-ev-activo,.pm-ev-activo:hover{background:#3b82f6;border-color:#3b82f6;color:#fff}" +
+    ".pm-ev-resumen{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .75rem;font-size:.9rem}" +
+    ".pm-chip-umbral{background:#fee2e2;color:#991b1b}" +
+    ".pm-ev-metricas{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.6rem;margin:.25rem 0 .5rem}" +
+    ".pm-ev-metrica{padding:.6rem .7rem;border-radius:6px;background:#f8fafc;border:1px solid #e2e8f0}" +
+    ".pm-ev-destacada{background:#eff6ff;border-color:#bfdbfe}" +
+    ".pm-ev-metrica-val{display:block;font-size:1.25rem;font-weight:600;color:#1e293b;line-height:1.3}" +
+    ".pm-ev-metrica-tit{display:block;font-size:.78rem;color:#64748b}" +
+    ".pm-punto-pico{fill:#3b82f6;stroke:#fff;stroke-width:2}";
 
   function iniciar() {
     if (!document.getElementById("pm-estilos")) {
@@ -625,6 +1106,8 @@
     }
     const cajas = document.querySelectorAll(".pronostico-mburicao");
     for (let i = 0; i < cajas.length; i++) montar(cajas[i]);
+    const eventos = document.querySelectorAll(".eventos-mburicao");
+    for (let j = 0; j < eventos.length; j++) montarEventos(eventos[j]);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", iniciar);
